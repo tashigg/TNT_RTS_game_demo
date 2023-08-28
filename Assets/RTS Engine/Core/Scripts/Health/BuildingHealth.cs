@@ -135,6 +135,8 @@ namespace RTSEngine.Health
 
         private void Update()
         {
+            if (Building == null) return;
+
             if (!RTSHelper.IsMasterInstance()
                 || Building.WorkerMgr.Amount == 0
                 || !hasBuildersInProgress

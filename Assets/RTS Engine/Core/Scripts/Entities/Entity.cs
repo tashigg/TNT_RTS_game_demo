@@ -218,8 +218,9 @@ namespace RTSEngine.Entities
 
             this.inputMgr = gameMgr.GetService<IInputManager>();
 
-            // Immediately set parent to null since some model cache aware calculations require the entity to be parentless
-            transform.SetParent(null, worldPositionStays: true);
+            // Immediately set parent to null since some model cache
+            // aware calculations require the entity to be parentless
+            //transform.SetParent(null, worldPositionStays: true);
 
             this.IsFree = initParams.free;
             this.FactionID = IsFree ? RTSHelper.FREE_FACTION_ID : initParams.factionID;

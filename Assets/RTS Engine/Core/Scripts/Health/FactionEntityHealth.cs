@@ -74,6 +74,8 @@ namespace RTSEngine.Health
 
         private void Update()
         {
+            if (dotHandlers == null) return;
+
             if (dotHandlers.Count == 0)
                 return;
 

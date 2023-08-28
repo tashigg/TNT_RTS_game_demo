@@ -1873,21 +1873,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uniqueId: 
-  playerServiceId: 
   playerCount: 0
   profileName: 
-  profileId: 
+  playerServiceId: 
   isLobbyHost: 0
   isJoinedLobby: 0
   isInLobby: 0
   isGameStarting: 0
   isGameStarted: 0
-  _lobbyId: 
-  _lobbyCode: 
-  _lobbyCodeToJoin: 
+  lobbyId: 
+  lobbyCode: 
+  lobbyCodeToJoin: 
   maxPlayers: 7
-  _nextHeartbeat: 0
-  _nextLobbyRefresh: 0
+  nextHeartbeat: 0
+  nextLobbyRefresh: 0
   lobbyRandomNumber: 
   isLobbyGameStart: 
 --- !u!4 &918719120

@@ -115,6 +115,7 @@ namespace RTSEngine.Task
 
         private void Update()
         {
+            if (this.Entity == null) return;
             if (!Entity.CanLaunchTask
                 || QueueCount == 0)
                 return;
