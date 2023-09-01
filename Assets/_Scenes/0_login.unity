@@ -1872,8 +1872,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48639cabe40bbd5429c38112ff7693fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uniqueId: 
   playerCount: 0
+  maxPlayers: 7
+  uniqueId: 
   profileName: 
   playerServiceId: 
   isLobbyHost: 0
@@ -1884,11 +1885,11 @@ MonoBehaviour:
   lobbyId: 
   lobbyCode: 
   lobbyCodeToJoin: 
-  maxPlayers: 7
   nextHeartbeat: 0
   nextLobbyRefresh: 0
   lobbyRandomNumber: 
   isLobbyGameStart: 
+  players: []
 --- !u!4 &918719120
 Transform:
   m_ObjectHideFlags: 0

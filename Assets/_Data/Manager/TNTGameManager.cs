@@ -1,3 +1,5 @@
+using RTSEngine.Entities;
+using RTSEngine.Game;
 using System.Collections;
 using System.Collections.Generic;
 using Tashi.NetworkTransport;
@@ -7,8 +9,11 @@ using UnityEngine;
 
 public class TNTGameManager : SaiSingleton<TNTGameManager>
 {
-    public NetworkManager networkManager;
     public TashiNetworkTransport NetworkTransport => NetworkManager.Singleton.NetworkConfig.NetworkTransport as TashiNetworkTransport;
+    public NetworkManager networkManager;
+    public GameManager gameManager;
+    public List<FactionPlayer> factionPlayers;
+
 
     protected override void Awake()
     {
@@ -26,6 +31,7 @@ public class TNTGameManager : SaiSingleton<TNTGameManager>
     {
         base.LoadComponents();
         this.LoadNetworkManager();
+        this.LoadGameManager();
     }
 
     protected virtual void LoadNetworkManager()
@@ -33,6 +39,13 @@ public class TNTGameManager : SaiSingleton<TNTGameManager>
         if (this.networkManager != null) return;
         this.networkManager = GameObject.Find("TNTNetworkManager").GetComponent<NetworkManager>();
         Debug.LogWarning(transform.name + ": LoadNetworkManager", gameObject);
+    }
+
+    protected virtual void LoadGameManager()
+    {
+        if (this.gameManager != null) return;
+        this.gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        Debug.LogWarning(transform.name + ": LoadGameManager", gameObject);
     }
 
     protected virtual void GameStart()

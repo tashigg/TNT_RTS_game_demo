@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7514287618849023055}
-  - component: {fileID: 7514287618849023052}
   - component: {fileID: 7514287618849023054}
+  - component: {fileID: 6792528887179212536}
   m_Layer: 0
   m_Name: TNTNetworkManager
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7514287618849023052
+--- !u!114 &7514287618849023054
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,7 +42,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 7514287618849023053}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 593a2fe42fa9d37498c96f9a383b6521, type: 3}
+  m_Script: {fileID: 11500000, guid: e5d3792a1cedbd65c9fea7d66071902c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Config:
+    BindPort: 0
+    SyncInterval: 33
+    NetworkMode: 3
+    TashiRelayBaseUrl: https://eastus.relay.infra.tashi.dev
+    TashiRelayApiKey: k0qF4Synlgkpy5I1oiSE6wrS0eaKmJSt
+--- !u!114 &6792528887179212536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7514287618849023053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12b4f95a7c1f1f044ba928c236523e04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   RunInBackground: 1
@@ -70,21 +88,3 @@ MonoBehaviour:
     SpawnTimeout: 1
     EnableNetworkLogs: 1
     OldPrefabList: []
---- !u!114 &7514287618849023054
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7514287618849023053}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5d3792a1cedbd65c9fea7d66071902c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Config:
-    BindPort: 0
-    SyncInterval: 33
-    NetworkMode: 3
-    TashiRelayBaseUrl: https://eastus.relay.infra.tashi.dev
-    TashiRelayApiKey: k0qF4Synlgkpy5I1oiSE6wrS0eaKmJSt
