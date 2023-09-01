@@ -90,7 +90,6 @@ public class LobbyManager : SaiSingleton<LobbyManager>
 
     protected virtual void LoadLobbyPlayer(List<Player> players)
     {
-        Debug.Log($"=======================");
         string id;
         string name;
         string position;
@@ -111,9 +110,6 @@ public class LobbyManager : SaiSingleton<LobbyManager>
             lobbyPlayer.name = name;
             lobbyPlayer.position = LobbyPositionsParser.FromString(position);
 
-            Debug.Log($"ID: {id}");
-            Debug.Log($"name: {name}");
-            Debug.Log($"position: {position}");
             this.AddPlayer(lobbyPlayer);
         }
     }
