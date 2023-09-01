@@ -90,6 +90,7 @@ public class LobbyManager : SaiSingleton<LobbyManager>
 
     protected virtual void LoadLobbyPlayer(List<Player> players)
     {
+        Debug.Log("Load Lobby Player");
         string id;
         string name;
         string position;
@@ -105,25 +106,27 @@ public class LobbyManager : SaiSingleton<LobbyManager>
             playerData = player.Data[LobbyPlayerData.position.ToString()];
             position = playerData.Value;
 
-            lobbyPlayer = new LobbyPlayer();
-            lobbyPlayer.id = id;
-            lobbyPlayer.name = name;
-            lobbyPlayer.position = LobbyPositionsParser.FromString(position);
+            lobbyPlayer = this.players.Find(player => player.id == id);
+            if(lobbyPlayer == null)
+            {
+                lobbyPlayer = new LobbyPlayer
+                {
+                    id = id,
+                    name = name,
+                    position = LobbyPositionsParser.FromString(position),
+                    playerOptions = player.Data,
+                };
 
-            this.AddPlayer(lobbyPlayer);
+                this.players.Add(lobbyPlayer);
+            }
         }
     }
 
-    protected virtual void AddPlayer(LobbyPlayer lobbyPlayer)
-    {
-        if (this.players.Find(player => player.id == lobbyPlayer.id) != null) return;
-        this.players.Add(lobbyPlayer);
-    }
 
     protected virtual async void UpdateLobbyData()
     {
-        Debug.Log("Update Lobby Data");
         if (!this.isLobbyHost) return;
+        Debug.Log("Update Lobby Data");
 
         UpdateLobbyOptions options = new UpdateLobbyOptions
         {
@@ -166,10 +169,10 @@ public class LobbyManager : SaiSingleton<LobbyManager>
         playerOptions.Data = new Dictionary<string, PlayerDataObject>();
 
         playerData = new PlayerDataObject(PlayerDataObject.VisibilityOptions.Public, this.profileName);
-        playerOptions.Data.Add("name", playerData);
+        playerOptions.Data.Add(LobbyPlayerData.name.ToString(), playerData);
 
         playerData = new PlayerDataObject(PlayerDataObject.VisibilityOptions.Public, LobbyPositions.host.ToString());
-        playerOptions.Data.Add("position", playerData);
+        playerOptions.Data.Add(LobbyPlayerData.position.ToString(), playerData);
 
         var lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, this.maxPlayers, lobbyOptions);
         await LobbyService.Instance.UpdatePlayerAsync(lobby.Id, this.playerServiceId, playerOptions);
@@ -207,7 +210,7 @@ public class LobbyManager : SaiSingleton<LobbyManager>
     {
         //this.profileName = "profile_" + Random.Range(1111111, 10001000).ToString();
         this.profileName = "profile_" + uniqueId;
-        Debug.Log("ServiceInit: " + this.profileName);
+        //Debug.Log("ServiceInit: " + this.profileName);
 
         var options = new InitializationOptions();
         options.SetProfile(this.profileName);

@@ -6,5 +6,5 @@ using RTSEngine.Faction;
 public struct FactionPlayer
 {
     public FactionSlot factionSlot;
-    public TNTPlayer tntPlayer;
+    public LobbyPlayer lobbyPlayer;
 }

@@ -19,7 +19,7 @@ public class BtnLobbyCreate : BaseButton
 
     protected override void OnClick()
     {
-        Debug.Log("Create Lobby");
+        //Debug.Log("Create Lobby");
         LobbyManager.Instance.CreateLobby();
     }
 }

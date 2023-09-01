@@ -6,6 +6,7 @@ public enum LobbyPlayerData
     unknow = 0,
     name = 1,
     position = 2,
+    team = 3,
 }
 
 public class LobbyPlayerDataParser

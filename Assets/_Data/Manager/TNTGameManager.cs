@@ -1,10 +1,12 @@
 using RTSEngine.Entities;
+using RTSEngine.Faction;
 using RTSEngine.Game;
 using System.Collections;
 using System.Collections.Generic;
 using Tashi.NetworkTransport;
 using Unity.Netcode;
 using Unity.Services.Lobbies;
+using Unity.Services.Lobbies.Models;
 using UnityEngine;
 
 public class TNTGameManager : SaiSingleton<TNTGameManager>
@@ -14,16 +16,16 @@ public class TNTGameManager : SaiSingleton<TNTGameManager>
     public GameManager gameManager;
     public List<FactionPlayer> factionPlayers;
 
-
     protected override void Awake()
     {
         base.Awake();
-        //this.GameStart();
+        DontDestroyOnLoad(gameObject);
     }
 
     protected override void Start()
     {
         base.Start();
+        this.AssignPlayers2Factions();
         this.GameStart();
     }
 
@@ -70,5 +72,42 @@ public class TNTGameManager : SaiSingleton<TNTGameManager>
             Debug.LogWarning("Update Session Details");
             NetworkTransport.UpdateSessionDetails(incomingSessionDetails);
         }
+    }
+
+    protected virtual void AssignPlayers2Factions()
+    {
+        if (!NetworkManager.Singleton.IsServer)
+        {
+            Invoke(nameof(this.AssignPlayers2Factions), 1f);
+            return;
+        }
+        Debug.Log("AssignPlayers2Factions");
+
+        FactionPlayer factionPlayer;
+        List<LobbyPlayer> lobbyPlayers = LobbyManager.Instance.players;
+        foreach(LobbyPlayer lobbyPlayer in lobbyPlayers)
+        {
+            FactionSlot factionSlot = this.GetFreeSlot();
+            factionPlayer = new FactionPlayer
+            {
+                lobbyPlayer = lobbyPlayer,
+                factionSlot = factionSlot,
+            };
+            this.factionPlayers.Add(factionPlayer);
+        }
+    }
+
+    protected virtual FactionSlot GetFreeSlot()
+    {
+        FactionPlayer exist;
+        foreach (FactionSlot factionSlot in this.gameManager.FactionSlots)
+        {
+            string name = factionSlot.Data.name;
+            exist = this.factionPlayers.Find(factionPlayer => factionPlayer.factionSlot.Data.name == name);
+            if (exist.lobbyPlayer != null) continue;
+            return factionSlot;
+        }
+
+        return null;
     }
 }
