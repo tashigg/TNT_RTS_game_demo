@@ -94,8 +94,23 @@ public class TNTGameManager : SaiSingleton<TNTGameManager>
                 factionSlot = factionSlot,
             };
             this.factionPlayers.Add(factionPlayer);
+
+            PongClientRpc(lobbyPlayer.id, factionSlot.Data.name);
         }
     }
+
+    [ClientRpc]
+    void PongClientRpc(string playerId, string team) {
+        Debug.LogWarning($"playerId {playerId}, team {team}");
+    }
+
+    [ServerRpc]
+    public void PingServerRpc(string playerId)
+    {
+        Debug.LogWarning($"Player Join {playerId}");
+    }
+
+
 
     protected virtual FactionSlot GetFreeSlot()
     {
