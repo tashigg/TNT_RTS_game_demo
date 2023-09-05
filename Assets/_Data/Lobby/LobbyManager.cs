@@ -6,6 +6,7 @@ using Unity.Services.Lobbies.Models;
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using RTSEngine.Faction;
 
 public class LobbyManager : SaiSingleton<LobbyManager>
 {
@@ -21,6 +22,7 @@ public class LobbyManager : SaiSingleton<LobbyManager>
     public float nextLobbyRefresh;
     public string lobbyRandomNumber = "";
     public string isLobbyGameStart = "";
+    public string teamString = "";
     public bool isLobbyHost = false;
     public bool isJoinedLobby = false;
     public bool isInLobby = false;
@@ -86,6 +88,11 @@ public class LobbyManager : SaiSingleton<LobbyManager>
         {
             this.isLobbyGameStart = isGameStart.Value;
         }
+
+        if (this.lobby.Data.TryGetValue("team", out DataObject team))
+        {
+            this.teamString = team.Value;
+        }
     }
 
     protected virtual void LoadLobbyPlayer(List<Player> players)
@@ -107,7 +114,7 @@ public class LobbyManager : SaiSingleton<LobbyManager>
             position = playerData.Value;
 
             lobbyPlayer = this.players.Find(player => player.id == id);
-            if(lobbyPlayer == null)
+            if (lobbyPlayer == null)
             {
                 lobbyPlayer = new LobbyPlayer
                 {
@@ -133,7 +140,15 @@ public class LobbyManager : SaiSingleton<LobbyManager>
             Name = this.LobbyName(),
             MaxPlayers = this.maxPlayers,
             IsPrivate = false,
-            Data = new Dictionary<string, DataObject>()
+            Data = this.GetLobbyOptionsData(),
+        };
+
+        this.lobby = await LobbyService.Instance.UpdateLobbyAsync(this.lobbyId, options);
+    }
+
+    protected virtual Dictionary<string, DataObject> GetLobbyOptionsData()
+    {
+        Dictionary<string, DataObject> lobbyOptionsData = new Dictionary<string, DataObject>()
             {
                 {
                     //For testing only
@@ -146,10 +161,28 @@ public class LobbyManager : SaiSingleton<LobbyManager>
                         visibility: DataObject.VisibilityOptions.Public,
                         value: this.isGameStarting.ToString())
                 },
-            }
-        };
+                {
+                    "team", new DataObject(
+                        visibility: DataObject.VisibilityOptions.Public,
+                        value: this.GetTeamString())
+                },
+            };
 
-        this.lobby = await LobbyService.Instance.UpdateLobbyAsync(this.lobbyId, options);
+        return lobbyOptionsData;
+    }
+
+    protected virtual string GetTeamString()
+    {
+        string teamString = "";
+        string playerString;
+        int index = 0;
+        foreach (LobbyPlayer lobbyPlayer in this.players)
+        {
+            playerString = $"{lobbyPlayer.name},capital_{index}";
+            teamString += playerString + ";";
+            index++;
+        }
+        return teamString;
     }
 
     public virtual async void CreateLobby()

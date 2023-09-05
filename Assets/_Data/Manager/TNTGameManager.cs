@@ -13,6 +13,7 @@ public class TNTGameManager : SaiSingleton<TNTGameManager>
 {
     public TashiNetworkTransport NetworkTransport => NetworkManager.Singleton.NetworkConfig.NetworkTransport as TashiNetworkTransport;
     public NetworkManager networkManager;
+    public RTSNetworkBehaviour rtsNetworkBehaviour;
     public GameManager gameManager;
     public List<FactionPlayer> factionPlayers;
 
@@ -34,6 +35,7 @@ public class TNTGameManager : SaiSingleton<TNTGameManager>
         base.LoadComponents();
         this.LoadNetworkManager();
         this.LoadGameManager();
+        this.LoadRTSNetworkBehaviour();
     }
 
     protected virtual void LoadNetworkManager()
@@ -48,6 +50,13 @@ public class TNTGameManager : SaiSingleton<TNTGameManager>
         if (this.gameManager != null) return;
         this.gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         Debug.LogWarning(transform.name + ": LoadGameManager", gameObject);
+    }
+
+    protected virtual void LoadRTSNetworkBehaviour()
+    {
+        if (this.rtsNetworkBehaviour != null) return;
+        this.rtsNetworkBehaviour = GameObject.Find("RTSNetworkBehaviour").GetComponent<RTSNetworkBehaviour>();
+        Debug.LogWarning(transform.name + ": LoadRTSNetworkBehaviour", gameObject);
     }
 
     protected virtual void GameStart()
@@ -76,6 +85,8 @@ public class TNTGameManager : SaiSingleton<TNTGameManager>
 
     protected virtual void AssignPlayers2Factions()
     {
+        Debug.Log("AssignPlayers2Factions ....");
+
         if (!NetworkManager.Singleton.IsServer)
         {
             Invoke(nameof(this.AssignPlayers2Factions), 1f);
@@ -95,22 +106,9 @@ public class TNTGameManager : SaiSingleton<TNTGameManager>
             };
             this.factionPlayers.Add(factionPlayer);
 
-            PongClientRpc(lobbyPlayer.id, factionSlot.Data.name);
+            this.rtsNetworkBehaviour.PongClientRpc(lobbyPlayer.id, factionSlot.Data.name);
         }
     }
-
-    [ClientRpc]
-    void PongClientRpc(string playerId, string team) {
-        Debug.LogWarning($"playerId {playerId}, team {team}");
-    }
-
-    [ServerRpc]
-    public void PingServerRpc(string playerId)
-    {
-        Debug.LogWarning($"Player Join {playerId}");
-    }
-
-
 
     protected virtual FactionSlot GetFreeSlot()
     {
