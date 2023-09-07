@@ -10,6 +10,10 @@ using RTSEngine.Faction;
 
 public class LobbyManager : SaiSingleton<LobbyManager>
 {
+    [Header("Controll")]
+    public TeamManager teamManager;
+
+    [Header("Lobby")]
     public int playerCount = 0;
     public int maxPlayers = 7;
     public string uniqueId;
@@ -23,6 +27,7 @@ public class LobbyManager : SaiSingleton<LobbyManager>
     public string lobbyRandomNumber = "";
     public string isLobbyGameStart = "";
     public string teamString = "";
+    public float lobbyRefreshDelay = 1.6f;
     public bool isLobbyHost = false;
     public bool isJoinedLobby = false;
     public bool isInLobby = false;
@@ -45,6 +50,19 @@ public class LobbyManager : SaiSingleton<LobbyManager>
         this.ClientStartGame();
     }
 
+    protected override void LoadComponents()
+    {
+        base.LoadComponents();
+        this.LoadTeamManager();
+    }
+
+    protected virtual void LoadTeamManager()
+    {
+        if (this.teamManager != null) return;
+        this.teamManager = GetComponentInChildren<TeamManager>();
+        Debug.LogWarning(transform.name + ": LoadTeamManager", gameObject);
+    }
+
     protected virtual void ClientStartGame()
     {
         if (this.isGameStarted) return;
@@ -64,7 +82,7 @@ public class LobbyManager : SaiSingleton<LobbyManager>
 
         if (Time.realtimeSinceStartup >= this.nextLobbyRefresh)
         {
-            this.nextLobbyRefresh = Time.realtimeSinceStartup + 2;
+            this.nextLobbyRefresh = Time.realtimeSinceStartup + this.lobbyRefreshDelay;
             this.UpdateLobbyData();
             this.LoadLobbyData();
         }
@@ -282,10 +300,5 @@ public class LobbyManager : SaiSingleton<LobbyManager>
     protected virtual void RandomUniqueId()
     {
         this.uniqueId = Random.Range(1000000, 9999999).ToString();
-    }
-
-    public virtual bool IsReady()
-    {
-        return this.lobbyId != "";
     }
 }

@@ -27,11 +27,11 @@ namespace RTSEngine.Faction
         public IFactionManager FactionMgr { private set; get; }
 
         [SerializeField, Tooltip("Disable this field to ignore the faction slot and have its initial entities destroyed when the game starts.")]
-        private bool enabled = true;
+        public bool enabled = true;
         public bool Enabled => enabled;
 
         [SerializeField, Tooltip("Default faction slot parameters.")]
-        private FactionSlotData data = new FactionSlotData { name = "faction_name", color = Color.blue, npcType = null, type = null, role = FactionSlotRole.host };
+        public FactionSlotData data = new FactionSlotData { name = "faction_name", color = Color.blue, npcType = null, type = null, role = FactionSlotRole.host };
         public FactionSlotData Data => data;
 
         [SerializeField, Tooltip("This is the position where the camera will look at when the game starts if this faction slot is the local player's.")]
