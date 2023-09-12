@@ -211,6 +211,9 @@ namespace RTSEngine.EntityComponent
 
         public override bool OnTaskUIClick(EntityComponentTaskUIAttributes taskAttributes)
         {
+            Debug.Log("PendingTaskEntityComponentBase OnTaskUIClick");
+            //RPCManager.Instance.tasksManager.PingServerRpc(Random.Range(1, 9999));
+
             return LaunchTaskAction(
                 RTSHelper.FindIndex(Tasks, nextTask => nextTask.Data.code == taskAttributes.data.code),
                 true) == ErrorMessage.none;

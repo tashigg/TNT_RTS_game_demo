@@ -352,6 +352,8 @@ namespace RTSEngine.EntityComponent
 
         public override bool OnTaskUIClick(EntityComponentTaskUIAttributes taskAttributes) 
         {
+            Debug.Log("FactionEntityTargetComponent OnTaskUIClick");
+
             if (SetTargetTaskUI.IsValid() && taskAttributes.data.code == SetTargetTaskUI.Key)
             {
                 taskMgr.AwaitingTask.Enable(taskAttributes);

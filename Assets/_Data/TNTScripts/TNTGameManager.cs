@@ -12,7 +12,6 @@ using UnityEngine;
 public class TNTGameManager : SaiSingleton<TNTGameManager>
 {
     public TashiNetworkTransport NetworkTransport => NetworkManager.Singleton.NetworkConfig.NetworkTransport as TashiNetworkTransport;
-    public NetworkManager networkManager;
     public GameManager gameManager;
     public List<FactionPlayer> factionPlayers;
 
@@ -23,24 +22,10 @@ public class TNTGameManager : SaiSingleton<TNTGameManager>
         this.EnableCapitals();
     }
 
-    protected override void Start()
-    {
-        base.Start();
-        this.GameStart();
-    }
-
     protected override void LoadComponents()
     {
         base.LoadComponents();
-        this.LoadNetworkManager();
         this.LoadGameManager();
-    }
-
-    protected virtual void LoadNetworkManager()
-    {
-        if (this.networkManager != null) return;
-        this.networkManager = GameObject.Find("TNTNetworkManager").GetComponent<NetworkManager>();
-        Debug.LogWarning(transform.name + ": LoadNetworkManager", gameObject);
     }
 
     protected virtual void LoadGameManager()
@@ -50,13 +35,6 @@ public class TNTGameManager : SaiSingleton<TNTGameManager>
         Debug.LogWarning(transform.name + ": LoadGameManager", gameObject);
     }
 
-    protected virtual void GameStart()
-    {
-        if (!LobbyManager.Instance.isInLobby
-            || LobbyManager.Instance.isLobbyHost)
-            this.networkManager.StartHost();
-        else this.networkManager.StartClient();
-    }
 
     protected virtual async void ReceiveIncomingDetail()
     {

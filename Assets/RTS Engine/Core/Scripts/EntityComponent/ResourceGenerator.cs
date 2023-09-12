@@ -319,6 +319,7 @@ namespace RTSEngine.EntityComponent
         /// <param name="task">TaskUI instance of the resource collection task. In other more complex components, multiple tasks can be drawn from the same component, this allows to define which task has been clicked.</param>
         public override bool OnTaskUIClick(EntityComponentTaskUIAttributes taskAttributes)
         {
+            Debug.Log("ResourceGenerator OnTaskUIClick");
             if (collectionTaskUI.IsValid() && taskAttributes.data.code == collectionTaskUI.Key)
             {
                 CollectResourcesAction(playerCommand: true);

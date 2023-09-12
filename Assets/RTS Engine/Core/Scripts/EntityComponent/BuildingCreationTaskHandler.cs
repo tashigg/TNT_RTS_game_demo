@@ -8,6 +8,7 @@ using RTSEngine.Game;
 using RTSEngine.Logging;
 using RTSEngine.UI;
 using RTSEngine.Upgrades;
+using UnityEngine;
 
 namespace RTSEngine.EntityComponent
 {
@@ -165,6 +166,8 @@ namespace RTSEngine.EntityComponent
 
         public bool OnTaskUIClick(EntityComponentTaskUIAttributes taskAttributes)
         {
+            Debug.Log("BuildingCreationTaskHandler OnTaskUIClick");
+
             // If it's not the launch task (task that makes the builder construct a building) then it is a building placement task.
             foreach (BuildingCreationTask creationTask in creationTasks)
                 if (creationTask.Data.code == taskAttributes.data.code)

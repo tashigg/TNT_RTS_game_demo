@@ -645,6 +645,8 @@ namespace RTSEngine.EntityComponent
 
         public override bool OnTaskUIClick(EntityComponentTaskUIAttributes taskAttributes)
         {
+            Debug.Log("UnitCarrier OnTaskUIClick");
+
             string taskCode = taskAttributes.data.code;
 
             if (ejectAllUnitsTaskUI.IsValid() && taskCode == ejectAllUnitsTaskUI.Data.code)

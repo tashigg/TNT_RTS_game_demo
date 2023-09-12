@@ -229,6 +229,7 @@ namespace RTSEngine.EntityComponent
 
         public override bool OnTaskUIClick(EntityComponentTaskUIAttributes taskAttributes)
         {
+
             if (!base.OnTaskUIClick(taskAttributes) // Check if this is not the set target task.
                 && ejectionTaskUI.IsValid() && taskAttributes.data.code == ejectionTaskUI.Key)
             {

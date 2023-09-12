@@ -120,7 +120,7 @@ namespace RTSEngine.Determinism
             foreach (IEntity entity in entityPrefabs)
             {
                 entity.InitPrefab(gameMgr);
-                entity.transform.SetParent(prefabsParent.transform);
+                //entity.transform.SetParent(prefabsParent.transform);
                 entity.transform.localPosition = Vector3.zero;
                 entity.gameObject.SetActive(false);
             }

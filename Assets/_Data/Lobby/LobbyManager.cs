@@ -7,11 +7,14 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using RTSEngine.Faction;
+using Tashi.NetworkTransport;
+using Unity.Netcode;
 
 public class LobbyManager : SaiSingleton<LobbyManager>
 {
     [Header("Controll")]
     public TeamManager teamManager;
+    public NetworkManager networkManager;
 
     [Header("Lobby")]
     public int playerCount = 0;
@@ -33,8 +36,10 @@ public class LobbyManager : SaiSingleton<LobbyManager>
     public bool isInLobby = false;
     public bool isGameStarting = false;
     public bool isGameStarted = false;
+    public bool playerDataUpdated = false;
     public Lobby lobby;
     public List<LobbyPlayer> players;
+    public TashiNetworkTransport NetworkTransport => NetworkManager.Singleton.NetworkConfig.NetworkTransport as TashiNetworkTransport;
 
     protected override void Awake()
     {
@@ -54,6 +59,7 @@ public class LobbyManager : SaiSingleton<LobbyManager>
     {
         base.LoadComponents();
         this.LoadTeamManager();
+        this.LoadNetworkManager();
     }
 
     protected virtual void LoadTeamManager()
@@ -61,6 +67,13 @@ public class LobbyManager : SaiSingleton<LobbyManager>
         if (this.teamManager != null) return;
         this.teamManager = GetComponentInChildren<TeamManager>();
         Debug.LogWarning(transform.name + ": LoadTeamManager", gameObject);
+    }
+
+    protected virtual void LoadNetworkManager()
+    {
+        if (this.networkManager != null) return;
+        this.networkManager = GameObject.Find("TNTNetworkManager").GetComponent<NetworkManager>();
+        Debug.LogWarning(transform.name + ": LoadNetworkManager", gameObject);
     }
 
     protected virtual void ClientStartGame()
@@ -85,6 +98,27 @@ public class LobbyManager : SaiSingleton<LobbyManager>
             this.nextLobbyRefresh = Time.realtimeSinceStartup + this.lobbyRefreshDelay;
             this.UpdateLobbyData();
             this.LoadLobbyData();
+            this.ReceiveIncomingDetail();
+        }
+    }
+
+    protected virtual void ReceiveIncomingDetail()
+    {
+        if (!this.playerDataUpdated) return;
+        if (!this.isGameStarted) return;
+        if (NetworkTransport.SessionHasStarted) return;
+        Debug.LogWarning("Receive Incoming Detail");
+
+        var incomingSessionDetails = IncomingSessionDetails.FromUnityLobby(this.lobby);
+        if (incomingSessionDetails.AddressBook.Count == lobby.Players.Count)
+        {
+            Debug.LogWarning("Update Session Details");
+            NetworkTransport.UpdateSessionDetails(incomingSessionDetails);
+
+            if (this.isLobbyHost)
+            {
+                this.networkManager.SceneManager.LoadScene("1_game", LoadSceneMode.Single);
+            }
         }
     }
 
@@ -115,10 +149,8 @@ public class LobbyManager : SaiSingleton<LobbyManager>
 
     protected virtual void LoadLobbyPlayer(List<Player> players)
     {
-        Debug.Log("Load Lobby Player");
-        string id;
-        string name;
-        string position;
+        //Debug.Log("Load Lobby Player");
+        string id, name, position;
         LobbyPlayer lobbyPlayer;
         PlayerDataObject playerData;
         foreach (Player player in players)
@@ -150,18 +182,35 @@ public class LobbyManager : SaiSingleton<LobbyManager>
 
     protected virtual async void UpdateLobbyData()
     {
-        if (!this.isLobbyHost) return;
-        Debug.Log("Update Lobby Data");
+        //Debug.Log("Update Lobby Data");
 
-        UpdateLobbyOptions options = new UpdateLobbyOptions
+        var updatePlayerOptions = new UpdatePlayerOptions();
+        var outgoingSessionDetails = NetworkTransport.OutgoingSessionDetails;
+        if (outgoingSessionDetails.AddTo(updatePlayerOptions))
         {
-            Name = this.LobbyName(),
-            MaxPlayers = this.maxPlayers,
-            IsPrivate = false,
-            Data = this.GetLobbyOptionsData(),
-        };
+            await LobbyService.Instance.UpdatePlayerAsync(this.lobbyId, this.playerServiceId, updatePlayerOptions);
+            this.playerDataUpdated = true;
+        }
 
-        this.lobby = await LobbyService.Instance.UpdateLobbyAsync(this.lobbyId, options);
+        if (!this.isLobbyHost) return;
+        var updateLobbyOptions = new UpdateLobbyOptions();
+        updateLobbyOptions.Data = new Dictionary<string, DataObject>();
+
+        updateLobbyOptions.Data.Add(
+            "team", new DataObject(
+            visibility: DataObject.VisibilityOptions.Public,
+            value: this.GetTeamString())
+        );
+
+        updateLobbyOptions.Data.Add(
+            "isGameStart", new DataObject(
+            visibility: DataObject.VisibilityOptions.Public,
+            value: this.isGameStarting.ToString())
+        );
+
+        outgoingSessionDetails.AddTo(updateLobbyOptions);
+
+        this.lobby = await LobbyService.Instance.UpdateLobbyAsync(this.lobbyId, updateLobbyOptions);
     }
 
     protected virtual Dictionary<string, DataObject> GetLobbyOptionsData()
@@ -259,9 +308,7 @@ public class LobbyManager : SaiSingleton<LobbyManager>
 
     public virtual async Task ServiceInit(string uniqueId)
     {
-        //this.profileName = "profile_" + Random.Range(1111111, 10001000).ToString();
         this.profileName = "profile_" + uniqueId;
-        //Debug.Log("ServiceInit: " + this.profileName);
 
         var options = new InitializationOptions();
         options.SetProfile(this.profileName);
@@ -292,9 +339,10 @@ public class LobbyManager : SaiSingleton<LobbyManager>
     public virtual void GameStart()
     {
         this.isGameStarting = true;
-        string sceneName = "1_Game";
-        SceneManager.LoadScene(sceneName);
         this.isGameStarted = true;
+
+        if (this.isLobbyHost) this.networkManager.StartHost();
+        else this.networkManager.StartClient();
     }
 
     protected virtual void RandomUniqueId()

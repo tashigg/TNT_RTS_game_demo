@@ -684,6 +684,7 @@ namespace RTSEngine.EntityComponent
 
         public override bool OnTaskUIClick(EntityComponentTaskUIAttributes taskAttributes)
         {
+            Debug.Log("FactionUnityAttack OnTaskUIClick");
             if (base.OnTaskUIClick(taskAttributes))
                 return true;
 
