@@ -25,24 +25,24 @@ public class NetworkObjCtrl : SaiMonoBehaviour
     protected virtual void LoadNetworkObject()
     {
         if (this.networkObject != null) return;
-        this.networkObject = transform.parent.GetComponent<NetworkObject>();
-        this.networkObject.enabled = false;
+        this.networkObject = transform.GetComponent<NetworkObject>();
         Debug.LogWarning(transform.name + ": LoadNetworkObject", gameObject);
     }
 
     protected virtual void LoadNetworkTransform()
     {
         if (this.networkTransform != null) return;
-        this.networkTransform = transform.parent.GetComponent<NetworkTransform>();
-        this.networkTransform.enabled = false;
+        this.networkTransform = transform.GetComponent<NetworkTransform>();
         Debug.LogWarning(transform.name + ": LoadNetworkTransform", gameObject);
     }
 
     protected virtual void StartNetworkObject()
     {
+        if (!this.networkObject.IsOwnedByServer) return;
+        Debug.Log(transform.name + ": StartNetworkObject", gameObject);
         //this.networkObject = transform.parent.gameObject.AddComponent<NetworkObject>();
-        this.networkObject.enabled = true;
-        this.networkTransform.enabled = true;
+        //this.networkObject.enabled = true;
+        //this.networkTransform.enabled = true;
         this.networkObject.Spawn();
     }
 }

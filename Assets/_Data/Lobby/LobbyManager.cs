@@ -93,6 +93,9 @@ public class LobbyManager : SaiSingleton<LobbyManager>
             await LobbyService.Instance.SendHeartbeatPingAsync(lobbyId);
         }
 
+        //if (NetworkTransport.SessionHasStarted) return;
+        //if (!this.isGameStarted) return;
+
         if (Time.realtimeSinceStartup >= this.nextLobbyRefresh)
         {
             this.nextLobbyRefresh = Time.realtimeSinceStartup + this.lobbyRefreshDelay;
