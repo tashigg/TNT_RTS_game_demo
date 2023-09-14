@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1027958259688430088}
   - component: {fileID: 1027958259688430089}
   - component: {fileID: 7353276831509053001}
+  - component: {fileID: 1892608545270213542}
   m_Layer: 0
   m_Name: TNTNetworkManager
   m_TagString: Untagged
@@ -64,14 +65,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RunInBackground: 1
-  LogLevel: 1
+  LogLevel: 2
   NetworkConfig:
     ProtocolVersion: 0
     NetworkTransport: {fileID: 1027958259688430089}
     PlayerPrefab: {fileID: 3857439847283047112, guid: 1081363a13b8da64a9da0d337c73390d, type: 3}
     Prefabs:
       NetworkPrefabsLists:
-      - {fileID: 11400000, guid: 0aaca8b0d72508f468e5cfa4907436ee, type: 2}
+      - {fileID: 11400000, guid: dbeb873fd2a4ff845a6e19f9677bee09, type: 2}
     TickRate: 30
     ClientConnectionBufferTimeout: 10
     ConnectionApproval: 0
@@ -88,3 +89,15 @@ MonoBehaviour:
     SpawnTimeout: 1
     EnableNetworkLogs: 1
     OldPrefabList: []
+--- !u!114 &1892608545270213542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1027958259688430090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 437d9e751376f6e4887bf395ab3a59d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

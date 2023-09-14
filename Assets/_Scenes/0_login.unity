@@ -3810,14 +3810,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: TNTNetworkManager
       objectReference: {fileID: 0}
-    - target: {fileID: 7353276831509053001, guid: 9539d2362e95c104c98a7b39ebfc8bae, type: 3}
-      propertyPath: LogLevel
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7353276831509053001, guid: 9539d2362e95c104c98a7b39ebfc8bae, type: 3}
-      propertyPath: NetworkConfig.Prefabs.NetworkPrefabsLists.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: dbeb873fd2a4ff845a6e19f9677bee09, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9539d2362e95c104c98a7b39ebfc8bae, type: 3}
 --- !u!1 &1945585531

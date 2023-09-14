@@ -33,20 +33,11 @@ public class NetworkUnitCtrl : NetworkObjCtrl
     protected override void StartServerObject()
     {
         this.networkObject.Spawn();
-
-        InitUnitParameters unitInitParams = new()
-        {
-            factionID = this.factionID,
-            free = false,
-            setInitialHealth = false,
-            rallypoint = null,
-            giveInitResources = true
-        };
-        //this.unit.Init(TNTGameManager.Instance.gameManager, unitInitParams);
-    }
+   }
 
     protected override void StartClientObject()
     {
+        base.StartClientObject();
         this.unitMovement.enabled = false;
     }
 }

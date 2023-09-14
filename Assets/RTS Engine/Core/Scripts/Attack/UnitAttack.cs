@@ -379,7 +379,7 @@ namespace RTSEngine.EntityComponent
 
         public override bool OnTaskUIClick(EntityComponentTaskUIAttributes taskAttributes)
         {
-            Debug.Log("UnitAttack OnTaskUIClick");
+            Debug.LogWarning("UnitAttack OnTaskUIClick");
             if (base.OnTaskUIClick(taskAttributes))
                 return true;
 
