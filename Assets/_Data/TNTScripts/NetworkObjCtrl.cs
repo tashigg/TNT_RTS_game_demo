@@ -6,8 +6,10 @@ using UnityEngine;
 
 public class NetworkObjCtrl : SaiMonoBehaviour
 {
+    [Header("Network Obj")]
     public NetworkObject networkObject;
     public NetworkTransform networkTransform;
+    public int factionID = 1;
 
     protected override void Start()
     {
@@ -38,11 +40,19 @@ public class NetworkObjCtrl : SaiMonoBehaviour
 
     protected virtual void StartNetworkObject()
     {
-        if (!this.networkObject.IsOwnedByServer) return;
         Debug.Log(transform.name + ": StartNetworkObject", gameObject);
-        //this.networkObject = transform.parent.gameObject.AddComponent<NetworkObject>();
-        //this.networkObject.enabled = true;
-        //this.networkTransform.enabled = true;
+        if (NetworkManager.Singleton.IsServer) this.StartServerObject();
+        else StartClientObject();
+
+    }
+
+    protected virtual void StartServerObject()
+    {
         this.networkObject.Spawn();
+    }
+
+    protected virtual void StartClientObject()
+    {
+        //Todo
     }
 }

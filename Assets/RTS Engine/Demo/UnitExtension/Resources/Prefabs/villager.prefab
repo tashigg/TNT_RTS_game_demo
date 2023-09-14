@@ -580,7 +580,7 @@ GameObject:
   - component: {fileID: 2010447614463032499}
   - component: {fileID: 3386499118359385165}
   - component: {fileID: 2040957897669393684}
-  - component: {fileID: 227280678387769343}
+  - component: {fileID: -2419649576324724073}
   m_Layer: 0
   m_Name: villager
   m_TagString: Untagged
@@ -968,7 +968,7 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 1
   SlerpPosition: 0
---- !u!114 &227280678387769343
+--- !u!114 &-2419649576324724073
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -977,11 +977,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1913004789782250}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1042bc73ef80754ca81f10084b00052, type: 3}
+  m_Script: {fileID: 11500000, guid: 4a4bb7331cabca149b4ae632b31a494e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   networkObject: {fileID: 3386499118359385165}
   networkTransform: {fileID: 2040957897669393684}
+  factionID: 1
+  unit: {fileID: 114993838964213816}
+  unitMovement: {fileID: 3269687981250789215}
 --- !u!1 &1605637123714786520
 GameObject:
   m_ObjectHideFlags: 0
