@@ -10,6 +10,7 @@ using RTSEngine.Event;
 using RTSEngine.Game;
 using RTSEngine.Logging;
 using RTSEngine.Utilities;
+using Unity.Netcode;
 
 namespace RTSEngine.EntityComponent
 {
@@ -211,8 +212,9 @@ namespace RTSEngine.EntityComponent
 
         public override bool OnTaskUIClick(EntityComponentTaskUIAttributes taskAttributes)
         {
-            Debug.LogWarning("PendingTaskEntityComponentBase OnTaskUIClick");
-            TNTNetworkPlayers.Instance.me.playerEvents.CreateVillagerServerRpc(Random.Range(1, 9999));
+            Debug.LogWarning("EntityComponentTaskUI OnClick");
+            TNTNetworkPlayers.Instance.me.playerEvents.CreateUnitServerRpc(taskAttributes.factionID, taskAttributes.data.code);
+            if (!NetworkManager.Singleton.IsServer) return false;
 
             return LaunchTaskAction(
                 RTSHelper.FindIndex(Tasks, nextTask => nextTask.Data.code == taskAttributes.data.code),

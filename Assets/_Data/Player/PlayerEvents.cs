@@ -1,3 +1,4 @@
+using RTSEngine.UI;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -37,8 +38,8 @@ public class PlayerEvents : NetworkBehaviour
     }
 
     [ServerRpc(RequireOwnership = false)]
-    public void CreateVillagerServerRpc(int pingCount)
+    public void CreateUnitServerRpc(int factionId, string taskCode)
     {
-        Debug.LogWarning($"CreateVillagerServerRpc: {pingCount}");
+        Debug.LogWarning($"CreateUnit: {factionId} {taskCode}", gameObject);
     }
 }
