@@ -48,6 +48,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   networkObject: {fileID: 3857439847283047127}
   playerEvents: {fileID: 8397554386375050624}
+  capital: {fileID: 0}
+  unitCreator: {fileID: 0}
 --- !u!114 &3857439847283047127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80,3 +82,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCtrl: {fileID: 3857439847283047126}
+  villager: {fileID: 114993838964213816, guid: 8d0703b2c0bc30d44b3553a37c906203, type: 3}

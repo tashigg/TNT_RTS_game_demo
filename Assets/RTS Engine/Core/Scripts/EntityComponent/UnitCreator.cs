@@ -9,6 +9,7 @@ using RTSEngine.Event;
 using RTSEngine.Upgrades;
 using RTSEngine.UnitExtension;
 using RTSEngine.Model;
+using Unity.Netcode;
 
 namespace RTSEngine.EntityComponent
 {
@@ -124,6 +125,15 @@ namespace RTSEngine.EntityComponent
         protected override ErrorMessage CompleteTaskActionLocal(int creationTaskID, bool playerCommand)
         {
             UnitCreationTask nextTask = allCreationTasks[creationTaskID];
+            Debug.LogWarning("=================");
+            Debug.LogWarning("UnitCreator CompleteTaskActionLocal");
+            Debug.LogWarning("nextTask.Prefab: "+nextTask.Prefab.Name);
+            if (!NetworkManager.Singleton.IsServer)
+            {
+                PlayerEvents playerEvents = TNTNetworkPlayers.Instance.me.playerEvents;
+                playerEvents.CreateUnitServerRpc(Entity.FactionID, nextTask.Prefab.Name);
+                return ErrorMessage.disabled;
+            }
 
             unitMgr.CreateUnit(
                 nextTask.Prefab,

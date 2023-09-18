@@ -15,7 +15,7 @@ namespace RTSEngine.Entities
         IResourceCollector CollectorComponent { get; }
         IBuilder BuilderComponent { get; }
         ICarriableUnit CarriableUnit { get; }
-        new IUnitHealth Health { get; }
+         new IUnitHealth Health { get; }
 
         IUnitSquad Squad { get; }
 

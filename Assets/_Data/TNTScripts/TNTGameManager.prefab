@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
+  unitManager: {fileID: 0}
   factionPlayers: []
 --- !u!1 &3389199477314143377
 GameObject:

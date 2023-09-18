@@ -984,7 +984,9 @@ MonoBehaviour:
   networkTransform: {fileID: 2040957897669393684}
   factionID: 1
   unit: {fileID: 114993838964213816}
+  unitHealth: {fileID: 114314286443579628}
   unitMovement: {fileID: 3269687981250789215}
+  entitySelectionCollider: {fileID: 6322346178248841660}
 --- !u!1 &1605637123714786520
 GameObject:
   m_ObjectHideFlags: 0

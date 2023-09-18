@@ -36,7 +36,7 @@ namespace RTSEngine.Entities
         public IResourceCollector CollectorComponent { private set; get; }
         public IBuilder BuilderComponent { private set; get; }
         public ICarriableUnit CarriableUnit { private set; get; }
-        public new IUnitHealth Health { private set; get; }
+        public new IUnitHealth Health { set; get; }
         #endregion
 
         #region Initializing/Terminating

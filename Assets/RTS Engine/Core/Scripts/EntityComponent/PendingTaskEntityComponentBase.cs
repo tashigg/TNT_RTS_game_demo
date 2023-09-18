@@ -27,7 +27,7 @@ namespace RTSEngine.EntityComponent
          * */
         public enum ActionType : byte { launch, complete }
 
-        protected IFactionEntity factionEntity { private set; get; }
+        public IFactionEntity factionEntity { private set; get; }
 
         // Used by the child class to specify the tasks array (since the type of the task might be different depending on the child class):
         public abstract IReadOnlyList<IEntityComponentTaskInput> Tasks { get; }
@@ -149,6 +149,7 @@ namespace RTSEngine.EntityComponent
         #region Handling Complete Action
         private ErrorMessage CompleteTaskAction(int taskID, bool playerCommand)
         {
+            Debug.LogWarning("CompleteTaskAction");
             if (!RTSHelper.HasAuthority(Entity))
                 return ErrorMessage.noAuthority;
             else if (taskID < 0 || taskID >= Tasks.Count)
@@ -212,10 +213,6 @@ namespace RTSEngine.EntityComponent
 
         public override bool OnTaskUIClick(EntityComponentTaskUIAttributes taskAttributes)
         {
-            Debug.LogWarning("EntityComponentTaskUI OnClick");
-            TNTNetworkPlayers.Instance.me.playerEvents.CreateUnitServerRpc(taskAttributes.factionID, taskAttributes.data.code);
-            if (!NetworkManager.Singleton.IsServer) return false;
-
             return LaunchTaskAction(
                 RTSHelper.FindIndex(Tasks, nextTask => nextTask.Data.code == taskAttributes.data.code),
                 true) == ErrorMessage.none;

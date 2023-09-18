@@ -1,3 +1,4 @@
+using RTSEngine.Entities;
 using RTSEngine.UI;
 using Unity.Netcode;
 using UnityEngine;
@@ -6,6 +7,7 @@ public class PlayerEvents : NetworkBehaviour
 {
     [Header("Player Events")]
     public RTSPlayerCtrl playerCtrl;
+    public Unit villager;
 
     private void Awake()
     {
@@ -41,5 +43,30 @@ public class PlayerEvents : NetworkBehaviour
     public void CreateUnitServerRpc(int factionId, string taskCode)
     {
         Debug.LogWarning($"CreateUnit: {factionId} {taskCode}", gameObject);
+
+        RTSPlayerCtrl playerCtrl = TNTNetworkPlayers.Instance.FindByFactionId(factionId);
+        Vector3 spawnPos = playerCtrl.unitCreator.SpawnPosition;
+
+        InitUnitParameters unitParam = new InitUnitParameters
+        {
+            factionID = factionId,
+            free = false,
+
+            setInitialHealth = false,
+
+            giveInitResources = true,
+
+            rallypoint = playerCtrl.unitCreator.factionEntity.Rallypoint,
+            creatorEntityComponent = playerCtrl.unitCreator,
+
+            useGotoPosition = true,
+            gotoPosition = spawnPos,
+
+            isSquad = true,
+            squadCount = 1,
+
+            playerCommand = true
+        };
+        TNTGameManager.Instance.unitManager.CreateUnitLocal(this.villager, spawnPos, Quaternion.identity, unitParam);
     }
 }

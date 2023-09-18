@@ -13,7 +13,7 @@ namespace RTSEngine.Selection
     public class EntitySelectionCollider : MonoBehaviour, IEntityPostInitializable
     {
         #region Attributes
-        public IEntity Entity { private set; get; }
+        public IEntity Entity { set; get; }
 
         // Game services
         protected IBuildingPlacement placementMgr { private set; get; }
@@ -58,17 +58,34 @@ namespace RTSEngine.Selection
         #region Handling MouseEnter/MouseExit
         void OnMouseEnter()
         {
-            if (!Entity.Health.IsDead
-                && Entity.Selection.IsActive
-                && !EventSystem.current.IsPointerOverGameObject()
-                && !placementMgr.IsLocalPlayerPlacingBuilding) 
-                globalEvent.RaiseEntityMouseEnterGlobal(Entity);
+            if(this.GetEntity() == null)
+            {
+                Debug.LogWarning("IT null");
+                return;
+            }
+            if (this.GetEntity().Health.IsDead) return;
+            if (!this.GetEntity().Selection.IsActive) return;
+            if (EventSystem.current.IsPointerOverGameObject()) return;
+            if (placementMgr.IsLocalPlayerPlacingBuilding) return;
+            globalEvent.RaiseEntityMouseEnterGlobal(Entity);
+
+            //if (!Entity.Health.IsDead
+            //    && Entity.Selection.IsActive
+            //    && !EventSystem.current.IsPointerOverGameObject()
+            //    && !placementMgr.IsLocalPlayerPlacingBuilding) 
+            //    globalEvent.RaiseEntityMouseEnterGlobal(Entity);
         }
 
         void OnMouseExit()
         {
-            globalEvent.RaiseEntityMouseExitGlobal(Entity);
+            globalEvent.RaiseEntityMouseExitGlobal(this.GetEntity());
         }
         #endregion
+
+        public virtual IEntity GetEntity()
+        {
+            if(this.Entity == null) this.Entity = transform.parent.GetComponent<Entity>();
+            return this.Entity;
+        }
     }
 }
