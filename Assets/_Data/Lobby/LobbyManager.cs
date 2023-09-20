@@ -72,7 +72,7 @@ public class LobbyManager : SaiSingleton<LobbyManager>
     protected virtual void LoadNetworkManager()
     {
         if (this.networkManager != null) return;
-        this.networkManager = GameObject.Find("TNTNetworkManager").GetComponent<NetworkManager>();
+        this.networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
         Debug.LogWarning(transform.name + ": LoadNetworkManager", gameObject);
     }
 

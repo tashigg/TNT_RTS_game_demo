@@ -17,11 +17,6 @@ public class RTSPlayerCtrl : SaiMonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    private void FixedUpdate()
-    {
-        this.LoadMyCapital();
-    }
-
     protected override void LoadComponents()
     {
         base.LoadComponents();
@@ -41,16 +36,5 @@ public class RTSPlayerCtrl : SaiMonoBehaviour
         if (this.playerEvents != null) return;
         this.playerEvents = GetComponent<PlayerEvents>();
         Debug.LogWarning(transform.name + ": LoadPlayerEvents", gameObject);
-    }
-
-    protected virtual void LoadMyCapital()
-    {
-        if (this.capital != null) return;
-        string capitalName = $"capital_{this.networkObject.OwnerClientId}";
-        this.capital = GameObject.Find(capitalName);
-        Debug.LogWarning(transform.name + ": LoadMyCapital "+ capitalName, gameObject);
-
-        if (this.capital == null) return;
-        this.unitCreator = this.capital.GetComponentInChildren<UnitCreator>();
     }
 }

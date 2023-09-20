@@ -60,7 +60,7 @@ namespace RTSEngine.Selection
         {
             if(this.GetEntity() == null)
             {
-                Debug.LogWarning("IT null");
+                Debug.LogWarning("IT null", gameObject);
                 return;
             }
             if (this.GetEntity().Health.IsDead) return;
