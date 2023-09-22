@@ -15,6 +15,7 @@ public class RallyPointMovement : BuildingAbstract
 
     protected virtual void ChoosePlace2Move()
     {
+        if (GodModeCtrl.instance == null) return;
         if (GodModeCtrl.instance.godInput.isMouseRotating) return;
         if (!Input.GetKeyUp(KeyCode.Mouse1)) return;
         if (!this.buildingCtrl.unitSelectable.IsSelected()) return;

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SelectionRenderer : BuildingAbstract
+public class SelectionRenderer : UnitAbstract
 {
     [Header("Selection Renderer")]
     public MeshRenderer meshRenderer;
@@ -27,6 +27,6 @@ public class SelectionRenderer : BuildingAbstract
 
     protected virtual void ShowingSelection()
     {
-        this.meshRenderer.enabled = this.buildingCtrl.unitSelectable.IsSelected();
+        this.meshRenderer.enabled = this.unitCtrl.unitSelectable.IsSelected();
     }
 }

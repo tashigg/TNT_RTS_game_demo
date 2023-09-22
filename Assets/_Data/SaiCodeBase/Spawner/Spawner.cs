@@ -5,11 +5,12 @@ using UnityEngine;
 public abstract class Spawner : SaiMonoBehaviour
 {
     [Header("Spawner")]
-    [SerializeField] protected Transform holder;
 
     [SerializeField] protected int spawnedCount = 0;
     public int SpawnedCount => spawnedCount;
 
+    [SerializeField] protected bool setHolder = true;
+    [SerializeField] protected Transform holder;
     [SerializeField] protected List<Transform> prefabs;
     [SerializeField] protected List<Transform> poolObjs;
 
@@ -71,7 +72,7 @@ public abstract class Spawner : SaiMonoBehaviour
         Transform newPrefab = this.GetObjectFromPool(prefab);
         newPrefab.SetPositionAndRotation(spawnPos, rotation);
 
-        //newPrefab.SetParent(this.holder);
+        if(this.setHolder) newPrefab.SetParent(this.holder);
         this.spawnedCount++;
 
         return newPrefab;

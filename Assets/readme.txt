@@ -17,3 +17,4 @@ RTS story mode
 - SG09 - Take GodModeCamera
 - SG09 - Take BuildManager
 - SG09 - MyLayerManager
+- RTS Engine - the AirTerrain block OnMouseDown

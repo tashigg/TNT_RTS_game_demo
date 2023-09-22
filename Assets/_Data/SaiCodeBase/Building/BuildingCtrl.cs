@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
-public class BuildingCtrl : SaiMonoBehaviour
+public class BuildingCtrl : UnitCtrl
 {
     [Header("Building")]
     public NetworkObject networkObject;
     public Transform spawnPoint;
     public Transform rallyPoint;
-    public UnitSelectable unitSelectable;
 
     protected override void LoadComponents()
     {
@@ -17,14 +16,6 @@ public class BuildingCtrl : SaiMonoBehaviour
         this.LoadNetworkManager();
         this.LoadSpawnPoint();
         this.LoadRallyPoint();
-        this.LoadUnitSelectable();
-    }
-
-    protected virtual void LoadUnitSelectable()
-    {
-        if (this.unitSelectable != null) return;
-        this.unitSelectable = GetComponentInChildren<UnitSelectable>();
-        Debug.LogWarning(transform.name + ": LoadUnitSelectable", gameObject);
     }
 
     protected virtual void LoadNetworkManager()

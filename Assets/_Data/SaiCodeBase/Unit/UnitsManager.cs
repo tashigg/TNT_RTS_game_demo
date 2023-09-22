@@ -42,8 +42,11 @@ public class UnitsManager : SaiSingleton<UnitsManager>
         BuildingCtrl buildingCtrl = netObj.GetComponent<BuildingCtrl>();
         Vector3 spawnPos = buildingCtrl.spawnPoint.position;
         Transform newObj = UnitSpawner.Instance.Spawn(unitCode.ToString(), spawnPos);
-        NetworkObject newNetObj = newObj.GetComponent<NetworkObject>();
         newObj.gameObject.SetActive(true);
+        UnitMoveableCtrl unitMoveableCtrl = newObj.GetComponent<UnitMoveableCtrl>();
+        unitMoveableCtrl.unitMovement.SetTarget(buildingCtrl.rallyPoint);
+        
+        NetworkObject newNetObj = newObj.GetComponent<NetworkObject>();
         newNetObj.Spawn();
     }
 }
