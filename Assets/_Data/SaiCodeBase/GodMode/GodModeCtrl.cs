@@ -6,6 +6,7 @@ public class GodModeCtrl : SaiMonoBehaviour
 
     [Header("God Mode")]
     public Camera _camera;
+    public GodInput godInput;
     public GodMovement godMovement;
 
     protected override void Awake()
@@ -18,6 +19,7 @@ public class GodModeCtrl : SaiMonoBehaviour
     protected override void LoadComponents()
     {
         base.LoadComponents();
+        this.LoadGodInput();
         this.LoadGodMovement();
         this.LoadCamera();
     }
@@ -35,5 +37,12 @@ public class GodModeCtrl : SaiMonoBehaviour
         this._camera = transform.Find("Camera").GetComponent<Camera>();
         this._camera.transform.rotation = Quaternion.Euler(this.godMovement.camView.x, this.godMovement.camView.y, this.godMovement.camView.z);
         Debug.Log(transform.name + ": LoadCamera", gameObject);
+    }
+
+    protected virtual void LoadGodInput()
+    {
+        if (this.godInput != null) return;
+        this.godInput = GetComponent<GodInput>();
+        Debug.Log(transform.name + ": LoadGodInput", gameObject);
     }
 }

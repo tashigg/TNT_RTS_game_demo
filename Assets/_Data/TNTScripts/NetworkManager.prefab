@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7190604400666017729}
   - component: {fileID: 7190604400666017730}
   - component: {fileID: 7190604400666017731}
+  - component: {fileID: 2081240693}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -46,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RunInBackground: 1
-  LogLevel: 1
+  LogLevel: 2
   NetworkConfig:
     ProtocolVersion: 0
     NetworkTransport: {fileID: 7190604400666017731}
@@ -87,4 +88,18 @@ MonoBehaviour:
     SyncInterval: 33
     NetworkMode: 3
     TashiRelayBaseUrl: https://eastus.relay.infra.tashi.dev
-    TashiRelayApiKey: 
+    TashiRelayApiKey: k0qF4Synlgkpy5I1oiSE6wrS0eaKmJSt
+--- !u!114 &2081240693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7190604400666017756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8340e3d858b2e24eafb563abf0dc172, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCtrls: []
+  me: {fileID: 0}

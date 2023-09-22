@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BasePointFinder : MainBaseAbstract
 {
+    [Header("Base Point Finder")]
+    [Tooltip("Arbitary text message")]
     [SerializeField] protected Transform basePoint;
 
     protected override void OnEnable()

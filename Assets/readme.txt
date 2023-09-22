@@ -9,3 +9,11 @@ TNT issues
 Issue 1: TNT has too many log
 Issue 2: InvalidOperationException: The platform has already been started
 Issue 3: Player XXXX didn't provide an AddressBookEntry
+
+
+RTS story mode
+- Try RTS engine
+- Rebuild with new code base
+- SG09 - Take GodModeCamera
+- SG09 - Take BuildManager
+- SG09 - MyLayerManager

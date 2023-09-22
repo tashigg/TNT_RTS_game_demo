@@ -3,6 +3,7 @@ using UnityEngine;
 public class GodInput : SaiMonoBehaviour
 {
     public GodModeCtrl godModeCtrl;
+    public bool isMouseRightClick = false;
     public bool isMouseRotating = false;
     public Vector2 mouseScroll = new Vector2();
     public Vector3 mouseReference = new Vector3();
@@ -43,21 +44,36 @@ public class GodInput : SaiMonoBehaviour
 
     protected virtual void MouseRotation()
     {
-        this.isMouseRotating = Input.GetKey(KeyCode.Mouse1);
+        this.isMouseRightClick = Input.GetKey(KeyCode.Mouse1);
         if (Input.GetKeyDown(KeyCode.Mouse1)) this.mouseReference = Input.mousePosition;
 
-        if (this.isMouseRotating)
-        {
-            this.mouseRotation = (Input.mousePosition - this.mouseReference);
-            this.mouseRotation.y = -(this.mouseRotation.x + this.mouseRotation.y);
-            this.mouseReference = Input.mousePosition; 
-        }
-        else
-        {
-            this.mouseRotation = Vector3.zero;
-        }
+        if (this.isMouseRightClick) this.CheckMouseRotation();
+        else this.mouseRotation = Vector3.zero;
 
         this.godModeCtrl.godMovement.camRotation.y = this.mouseRotation.x;
+    }
+
+    protected virtual void CheckMouseRotation()
+    {
+        this.mouseRotation = (Input.mousePosition - this.mouseReference);
+        this.mouseRotation.y = -(this.mouseRotation.x + this.mouseRotation.y);
+        this.mouseReference = Input.mousePosition;
+        if (this.mouseRotation.x == 0 && this.mouseRotation.y == 0) return;
+        if (this.isMouseRotating == false) CheckMouseRotating();
+        this.isMouseRotating = true;
+    }
+
+    protected virtual void CheckMouseRotating()
+    {
+        if (this.mouseRotation.x != 0
+            || this.mouseRotation.y != 0
+            || this.isMouseRightClick)
+        {
+            Invoke(nameof(this.CheckMouseRotating), 0.4f);
+            return;
+        }
+
+        this.isMouseRotating = false;
     }
 
     protected virtual void ChoosePlace2Build()

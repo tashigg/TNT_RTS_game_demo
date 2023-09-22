@@ -11,15 +11,15 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Worker
+  - Ground
   - GroundTerrain
   - Obstacle
   - EntitySelection
   - BaseTerrain
-  - 
+  - Building
   - Border
-  - 
+  - Tree
   - 
   - 
   - 
