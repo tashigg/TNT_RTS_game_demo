@@ -48,7 +48,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 7626923135708511071}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.6
+  m_Radius: 0.5
   m_Speed: 7
   m_Acceleration: 25
   avoidancePriority: 50
@@ -60,7 +60,7 @@ NavMeshAgent:
   m_Height: 1
   m_BaseOffset: 0
   m_WalkableMask: 7
-  m_ObstacleAvoidanceType: 0
+  m_ObstacleAvoidanceType: 1
 --- !u!114 &4579499001454613274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,7 +122,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e59d425df9181b4584541f3f369a3c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  networkObject: {fileID: 4579499001454613274}
   unitSelectable: {fileID: 9084142786402399871}
+  navMeshAgent: {fileID: 7740102613133530123}
   unitMovement: {fileID: 902921275293470978}
 --- !u!1 &7627485830065127075
 GameObject:
@@ -804,6 +806,10 @@ PrefabInstance:
     - target: {fileID: 3785717447176600053, guid: 0ea5dfb256de59645a8412e476867701, type: 3}
       propertyPath: m_Center.y
       value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3785717447176600053, guid: 0ea5dfb256de59645a8412e476867701, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0ea5dfb256de59645a8412e476867701, type: 3}

@@ -7,8 +7,6 @@ public class UnitSpawner : Spawner
     private static UnitSpawner instance;
     public static UnitSpawner Instance => instance;
 
-    public static string lightInfantry = "LightInfantry";
-
     protected override void Awake()
     {
         base.Awake();

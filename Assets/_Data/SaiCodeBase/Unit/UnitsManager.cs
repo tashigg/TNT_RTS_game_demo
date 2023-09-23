@@ -8,32 +8,15 @@ public class UnitsManager : SaiSingleton<UnitsManager>
     [Header("Unit Manager")]
     public BuildingCtrl currentBuilding;
 
-    protected override void OnEnable()
-    {
-        base.OnEnable();
-        this.LoadDefaultBuilding();
-    }
-
     public virtual void SetCurrentBuilding(BuildingCtrl buildingCtrl)
     {
         this.currentBuilding = buildingCtrl;
     }
 
-    protected virtual void LoadDefaultBuilding()
-    {
-        if(NetworkPlayers.Instance.me == null)
-        {
-            Invoke(nameof(this.LoadDefaultBuilding), 0.5f);
-            return;
-        }
-
-        this.SetCurrentBuilding(NetworkPlayers.Instance.me);
-    }
-
     public virtual void CreateUnit(UnitCode unit)
     {
         ulong networkObjectId = this.currentBuilding.networkObject.NetworkObjectId;
-        NetworkPlayers.Instance.me.mainBaseEvents.CreateUnitServerRpc(networkObjectId, unit);
+        NetworkPlayers.Instance.me.playerEvents.CreateUnitServerRpc(networkObjectId, unit);
     }
 
     public virtual void CreateUnitFromServer(ulong netObjectId, UnitCode unitCode)
@@ -44,9 +27,10 @@ public class UnitsManager : SaiSingleton<UnitsManager>
         Transform newObj = UnitSpawner.Instance.Spawn(unitCode.ToString(), spawnPos);
         newObj.gameObject.SetActive(true);
         UnitMoveableCtrl unitMoveableCtrl = newObj.GetComponent<UnitMoveableCtrl>();
-        unitMoveableCtrl.unitMovement.SetTarget(buildingCtrl.rallyPoint);
-        
+        unitMoveableCtrl.unitMovement.MoveTo(buildingCtrl.rallyPoint.transform.position);
+
+        ulong ownerId = netObj.OwnerClientId;
         NetworkObject newNetObj = newObj.GetComponent<NetworkObject>();
-        newNetObj.Spawn();
+        newNetObj.SpawnWithOwnership(ownerId);
     }
 }

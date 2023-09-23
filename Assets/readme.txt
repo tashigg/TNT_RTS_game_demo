@@ -9,6 +9,8 @@ TNT issues
 Issue 1: TNT has too many log
 Issue 2: InvalidOperationException: The platform has already been started
 Issue 3: Player XXXX didn't provide an AddressBookEntry
+Issue 4: Open room and start host
+Issue 5: Start host in Game Scene
 
 
 RTS story mode

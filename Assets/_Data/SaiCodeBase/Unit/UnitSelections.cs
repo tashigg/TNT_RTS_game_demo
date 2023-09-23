@@ -22,9 +22,13 @@ public class UnitSelections : SaiSingleton<UnitSelections>
 
     public virtual void Select(UnitSelectable unit)
     {
+        if (!unit.unitCtrl.IsOwner()) return;
+
         this.Clear();
         this.units.Add(unit);
         this.firstUnit = unit;
+
+        UnitsManager.Instance.SetCurrentBuilding(unit.unitCtrl as BuildingCtrl);
     }
 
     protected virtual void ChooseOneUnit()
@@ -42,7 +46,7 @@ public class UnitSelections : SaiSingleton<UnitSelections>
             return;
         }
 
-        this.Clear();
+        //this.Clear();
     }
 
     protected virtual void ClearSelections()

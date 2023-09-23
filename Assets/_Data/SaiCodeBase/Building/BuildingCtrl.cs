@@ -6,23 +6,14 @@ using UnityEngine;
 public class BuildingCtrl : UnitCtrl
 {
     [Header("Building")]
-    public NetworkObject networkObject;
     public Transform spawnPoint;
-    public Transform rallyPoint;
+    public RallyPointCtrl rallyPoint;
 
     protected override void LoadComponents()
     {
         base.LoadComponents();
-        this.LoadNetworkManager();
         this.LoadSpawnPoint();
-        this.LoadRallyPoint();
-    }
-
-    protected virtual void LoadNetworkManager()
-    {
-        if (this.networkObject != null) return;
-        this.networkObject = GetComponent<NetworkObject>();
-        Debug.LogWarning(transform.name + ": LoadNetworkManager", gameObject);
+        this.LoadRallyPointCtrl();
     }
 
     protected virtual void LoadSpawnPoint()
@@ -32,10 +23,10 @@ public class BuildingCtrl : UnitCtrl
         Debug.LogWarning(transform.name + ": LoadSpawnPoint", gameObject);
     }
 
-    protected virtual void LoadRallyPoint()
+    protected virtual void LoadRallyPointCtrl()
     {
         if (this.rallyPoint != null) return;
-        this.rallyPoint = transform.Find("RallyPoint");
-        Debug.LogWarning(transform.name + ": LoadRallyPoint", gameObject);
+        this.rallyPoint = GetComponentInChildren<RallyPointCtrl>();
+        Debug.LogWarning(transform.name + ": LoadRallyPointCtrl", gameObject);
     }
 }

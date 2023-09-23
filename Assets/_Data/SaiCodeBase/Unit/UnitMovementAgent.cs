@@ -7,20 +7,34 @@ public class UnitMovementAgent : UnitAbstract
 {
     [Header("Unit Movement")]
     public NavMeshAgent navMeshAgent;
-    public bool isWalking = false;
-    [SerializeField] protected Transform target;
+    public bool canMove = true;
+    [SerializeField] protected bool isWalking = false;
+    [SerializeField] protected Transform movePoint;
     [SerializeField] protected float walkLimit = 0.7f;
     [SerializeField] protected float targetDistance = 0f;
 
-    void FixedUpdate()
+    void LateUpdate()
     {
         this.Moving();
+    }
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
     }
 
     protected override void LoadComponents()
     {
         base.LoadComponents();
+        this.LoadMovePoint();
         this.LoadNavMeshAgent();
+    }
+
+    protected virtual void LoadMovePoint()
+    {
+        if (this.movePoint != null) return;
+        this.movePoint = transform.Find("MovePoint");
+        Debug.LogWarning(transform.name + ": LoadMovePoint", gameObject);
     }
 
     protected virtual void LoadNavMeshAgent()
@@ -34,43 +48,27 @@ public class UnitMovementAgent : UnitAbstract
         Debug.LogWarning(transform.name + ": LoadNavMeshAgent", gameObject);
     }
 
-    public virtual Transform GetTarget()
+    public virtual void MoveTo(Vector3 position)
     {
-        return this.target;
-    }
-
-    public virtual void SetTarget(Transform trans)
-    {
-        this.target = trans;
-
-        if (this.target == null)
-        {
-            this.navMeshAgent.enabled = false;
-        }
-        else
-        {
-            this.navMeshAgent.enabled = true;
-            this.IsClose2Target();
-        }
+        this.movePoint.position = position;
+        this.movePoint.parent = null;
     }
 
     protected virtual void Moving()
     {
-        if (this.target == null || this.IsClose2Target())
+        if (!this.canMove || this.IsClose2Target())
         {
             this.isWalking = false;
             return;
         }
 
         this.isWalking = true;
-        this.navMeshAgent.SetDestination(this.target.position);
+        this.navMeshAgent.SetDestination(this.movePoint.position);
     }
 
     public virtual bool IsClose2Target()
     {
-        if (this.target == null) return false;
-
-        Vector3 targetPos = this.target.position;
+        Vector3 targetPos = this.movePoint.position;
         targetPos.y = transform.position.y;
 
         this.targetDistance = Vector3.Distance(transform.position, targetPos);
