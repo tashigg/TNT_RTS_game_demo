@@ -6,13 +6,33 @@ public class UnitCtrl : SaiMonoBehaviour
     [Header("Unit Ctrl")]
     public NetworkObject networkObject;
     public UnitSelectable unitSelectable;
+    public TeamAssignment teamAssignment;
+
+    [SerializeField] protected int clientId = -1;
+    public int ClientID => clientId;
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+
+    }
+
+    protected override void Start()
+    {
+        base.Start();
+        this.LoadClientId();
+
+        //this.AssignTeam();
+    }
 
     protected override void LoadComponents()
     {
         base.LoadComponents();
         this.LoadNetworkManager();
         this.LoadUnitSelectable();
+        this.LoadTeamAssignment();
     }
+
 
     protected virtual void LoadNetworkManager()
     {
@@ -32,4 +52,29 @@ public class UnitCtrl : SaiMonoBehaviour
     {
         return this.networkObject.IsOwner;
     }
+
+    protected virtual void LoadClientId()
+    {
+        if (!this.networkObject.IsSpawned)
+        {
+            Invoke(nameof(this.LoadClientId), 0.2f);
+            return;
+        }
+
+        this.clientId = (int)this.networkObject.OwnerClientId;
+    }
+
+    protected virtual void AssignTeam()
+    {
+        int teamId = (int) NetworkManager.Singleton.LocalClientId;
+    }
+
+
+    protected virtual void LoadTeamAssignment()
+    {
+        if (this.teamAssignment != null) return;
+        this.teamAssignment = GetComponent<TeamAssignment>();
+        Debug.LogWarning(transform.name + ": LoadTeamAssignment", gameObject);
+    }
+
 }

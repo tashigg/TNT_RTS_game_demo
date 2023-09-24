@@ -19,7 +19,7 @@ namespace RTSEngine.Selection
 
         private Coroutine flashCoroutine;
 
-        private IEntitySelection entitySelection;
+        [SerializeReference] private IEntitySelection entitySelection;
 
         protected IGameLoggingService logger { private set; get; } 
         #endregion

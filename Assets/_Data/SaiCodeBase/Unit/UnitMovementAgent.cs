@@ -56,7 +56,7 @@ public class UnitMovementAgent : UnitAbstract
 
     protected virtual void Moving()
     {
-        if (!this.canMove || this.IsClose2Target())
+        if (!this.CanMove() || this.IsClose2Target())
         {
             this.isWalking = false;
             return;
@@ -64,6 +64,11 @@ public class UnitMovementAgent : UnitAbstract
 
         this.isWalking = true;
         this.navMeshAgent.SetDestination(this.movePoint.position);
+    }
+
+    public virtual bool CanMove()
+    {
+        return this.canMove && this.navMeshAgent.enabled;
     }
 
     public virtual bool IsClose2Target()
