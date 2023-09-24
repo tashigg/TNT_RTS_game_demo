@@ -25,27 +25,17 @@ public class NetGameManager : SaiSingleton<NetGameManager>
     {
         if (!NetworkManager.Singleton.IsServer) return;
         int playerCount = LobbyManager.Instance.playerCount;
-        Debug.LogWarning("SpawnPlayers: " + playerCount);
+        //Debug.LogWarning("SpawnPlayers: " + playerCount);
         for (int i = 0; i < playerCount; i++)
         {
             Transform newObj = BuildingSpawner.Instance.Spawn(BuildingCode.DummyPlayer.ToString(), Vector3.zero);
             NetworkObject networkObject = newObj.GetComponent<NetworkObject>();
             networkObject.SpawnWithOwnership((ulong)i, false);
         }
-
-        //IReadOnlyList<ulong> ids = NetworkManager.Singleton.ConnectedClientsIds;
-        //foreach (ulong clientId in NetworkManager.Singleton.ConnectedClientsIds)
-        //{
-        //    Transform newObj = BuildingSpawner.Instance.Spawn(BuildingCode.DummyPlayer.ToString(), Vector3.zero);
-        //    NetworkObject networkObject = newObj.GetComponent<NetworkObject>();
-        //    networkObject.SpawnWithOwnership(clientId, false);
-        //}
     }
 
     protected virtual void SpawnFirstBase()
     {
-        Debug.LogWarning($"try to SpawnFirstBase", gameObject);
-
         if (NetworkPlayers.Instance.me == null)
         {
             Invoke(nameof(this.SpawnFirstBase), 0.5f);

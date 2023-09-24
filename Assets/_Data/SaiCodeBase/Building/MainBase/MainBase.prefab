@@ -3090,6 +3090,7 @@ GameObject:
   - component: {fileID: 4452615559735098784}
   - component: {fileID: 148162401977807023}
   - component: {fileID: 4452615559735098785}
+  - component: {fileID: 5340403717552050184}
   m_Layer: 0
   m_Name: MainBase
   m_TagString: Untagged
@@ -3180,10 +3181,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   networkObject: {fileID: 4452615559735098784}
   unitSelectable: {fileID: 6632411166053559611}
-  teamAssignment: {fileID: 0}
+  teamAssignment: {fileID: 5340403717552050184}
   clientId: -1
   spawnPoint: {fileID: 3849332726147545760}
   rallyPoint: {fileID: 192722409505443568}
+--- !u!114 &5340403717552050184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4452615559735098787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a74ed0b6f6253e4298af20c56b4a5ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teamId: 0
+  gameData: {fileID: 11400000, guid: dd4462f8d6710c04a9e075f3c238a3a9, type: 2}
+  colorRenderers:
+  - {fileID: 2037921865442283637}
+  - {fileID: 4235331819683118138}
+  - {fileID: 2628415734653480773}
+  - {fileID: 1093511560036322913}
+  - {fileID: 505396601378805226}
+  - {fileID: 4226751790157512886}
+  - {fileID: 7645552653800194131}
+  - {fileID: 7824390001558564284}
+  - {fileID: 3521182327929896532}
+  - {fileID: 6994278670961894766}
+  - {fileID: 706501078518449090}
+  - {fileID: 7814270592098881894}
+  - {fileID: 1741857132009928284}
 --- !u!1 &4459202461303128491
 GameObject:
   m_ObjectHideFlags: 0
@@ -7125,6 +7154,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d10f47aabbf5a0d4e9e66b7bcfd4cf7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!23 &1741857132009928284 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1741857132761516454, guid: 737dbf546b359d546b9d55eeacc0a6e6, type: 3}
+  m_PrefabInstance: {fileID: 1834336250}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &7814270592098881894 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7814270592714043036, guid: 737dbf546b359d546b9d55eeacc0a6e6, type: 3}
+  m_PrefabInstance: {fileID: 1834336250}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8131538386201107792 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8131538385609024170, guid: 737dbf546b359d546b9d55eeacc0a6e6, type: 3}

@@ -6,14 +6,9 @@ public class TeamAssignment : SaiMonoBehaviour
 {
     [Header("Color Render")]
     [SerializeField] protected int teamId = 0;
-    [SerializeField] protected GameInfoSO gameInfo;
+    [SerializeField] protected GameInfoSO gameData;
     [SerializeField] protected List<MeshRenderer> colorRenderers;
 
-    protected override void Start()
-    {
-        base.Start();
-        //this.ColorApply(this.teamId);
-    }
 
     protected override void LoadComponents()
     {
@@ -21,35 +16,11 @@ public class TeamAssignment : SaiMonoBehaviour
         this.LoadGameData();
     }
 
-    protected override void Reset()
-    {
-        base.Reset();
-        this.LoadMeshRenderer();
-    }
-
     protected virtual void LoadGameData()
     {
-        if (this.gameInfo != null) return;
-        this.gameInfo = Resources.Load("GameInfo") as GameInfoSO;
+        if (this.gameData != null) return;
+        this.gameData = Resources.Load("GameInfo") as GameInfoSO;
         Debug.LogWarning(transform.name + ": LoadGameData", gameObject);
-    }
-
-    protected virtual void LoadMeshRenderer()
-    {
-        if (this.colorRenderers.Count > 0) return;
-        MeshRenderer[] meshRenderers = GetComponentsInChildren<MeshRenderer>();
-        foreach (MeshRenderer renderer in meshRenderers)
-        {
-            foreach (Material material in renderer.materials)
-            {
-                if (material.name.Contains("roof "))
-                {
-                    this.colorRenderers.Add(renderer);
-                    continue;
-                }
-            }
-        }
-        Debug.LogWarning(transform.name + ": LoadMeshRenderer", gameObject);
     }
 
     public virtual void ColorApply(int teamId)
@@ -60,7 +31,7 @@ public class TeamAssignment : SaiMonoBehaviour
         int materialCount;
         Material[] newMaterials;
         Material material;
-        TeamData team = this.gameInfo.teams[teamId];
+        TeamData team = this.gameData.teams[teamId];
         foreach (MeshRenderer renderer in this.colorRenderers)
         {
             newMaterials = renderer.materials;

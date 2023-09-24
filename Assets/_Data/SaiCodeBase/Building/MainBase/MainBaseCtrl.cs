@@ -7,6 +7,4 @@ public class MainBaseCtrl : BuildingCtrl
 {
     //[Header("Main Base")]
 
-
-
 }

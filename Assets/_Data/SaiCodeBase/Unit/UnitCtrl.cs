@@ -11,18 +11,10 @@ public class UnitCtrl : SaiMonoBehaviour
     [SerializeField] protected int clientId = -1;
     public int ClientID => clientId;
 
-    protected override void OnEnable()
-    {
-        base.OnEnable();
-
-    }
-
     protected override void Start()
     {
         base.Start();
         this.LoadClientId();
-
-        //this.AssignTeam();
     }
 
     protected override void LoadComponents()
@@ -62,11 +54,15 @@ public class UnitCtrl : SaiMonoBehaviour
         }
 
         this.clientId = (int)this.networkObject.OwnerClientId;
+        this.AssignTeam();
     }
 
     protected virtual void AssignTeam()
     {
-        int teamId = (int) NetworkManager.Singleton.LocalClientId;
+        Debug.Log($"AssignTeam {this.clientId}", gameObject);
+        //TeamAssignment teamAssignment = gameObject.AddComponent(typeof(TeamAssignment)) as TeamAssignment;
+        //teamAssignment.LoadMeshRenderer();
+        this.teamAssignment.ColorApply(this.clientId);
     }
 
 
@@ -76,5 +72,4 @@ public class UnitCtrl : SaiMonoBehaviour
         this.teamAssignment = GetComponent<TeamAssignment>();
         Debug.LogWarning(transform.name + ": LoadTeamAssignment", gameObject);
     }
-
 }
