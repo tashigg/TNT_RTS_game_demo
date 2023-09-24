@@ -11,7 +11,7 @@ public class UnitMoveableCtrl: UnitCtrl
     protected override void OnEnable()
     {
         base.OnEnable();
-        this.DisableClientNavAgnet();
+        Invoke(nameof(this.DisableClientNavAgnet), 0.2f);
     }
 
     protected override void LoadComponents()
@@ -37,7 +37,6 @@ public class UnitMoveableCtrl: UnitCtrl
 
     protected virtual void DisableClientNavAgnet()
     {
-        if (NetworkManager.Singleton.IsServer) return;
-        this.navMeshAgent.enabled = false;
+        this.navMeshAgent.enabled = NetworkManager.Singleton.IsServer;
     }
 }

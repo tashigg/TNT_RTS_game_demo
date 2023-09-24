@@ -24,6 +24,9 @@ public class UnitsManager : SaiSingleton<UnitsManager>
         NetworkObject netObj = NetworkManager.Singleton.SpawnManager.SpawnedObjects[netObjectId];
         BuildingCtrl buildingCtrl = netObj.GetComponent<BuildingCtrl>();
         Vector3 spawnPos = buildingCtrl.spawnPoint.position;
+
+        Debug.LogWarning($"CreateUnitFromServer {netObj.name} => {unitCode} {spawnPos}");
+
         Transform newObj = UnitSpawner.Instance.Spawn(unitCode.ToString(), spawnPos);
         newObj.gameObject.SetActive(true);
         UnitMoveableCtrl unitMoveableCtrl = newObj.GetComponent<UnitMoveableCtrl>();

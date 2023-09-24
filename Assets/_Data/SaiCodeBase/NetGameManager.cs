@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 public class NetGameManager : SaiSingleton<NetGameManager>
@@ -16,7 +17,29 @@ public class NetGameManager : SaiSingleton<NetGameManager>
     protected virtual void GameStart()
     {
         this.gameStarted = true;
+        this.SpawnPlayers();
         this.SpawnFirstBase();
+    }
+
+    protected virtual void SpawnPlayers()
+    {
+        if (!NetworkManager.Singleton.IsServer) return;
+        int playerCount = LobbyManager.Instance.playerCount;
+        Debug.LogWarning("SpawnPlayers: " + playerCount);
+        for (int i = 0; i < playerCount; i++)
+        {
+            Transform newObj = BuildingSpawner.Instance.Spawn(BuildingCode.DummyPlayer.ToString(), Vector3.zero);
+            NetworkObject networkObject = newObj.GetComponent<NetworkObject>();
+            networkObject.SpawnWithOwnership((ulong)i, false);
+        }
+
+        //IReadOnlyList<ulong> ids = NetworkManager.Singleton.ConnectedClientsIds;
+        //foreach (ulong clientId in NetworkManager.Singleton.ConnectedClientsIds)
+        //{
+        //    Transform newObj = BuildingSpawner.Instance.Spawn(BuildingCode.DummyPlayer.ToString(), Vector3.zero);
+        //    NetworkObject networkObject = newObj.GetComponent<NetworkObject>();
+        //    networkObject.SpawnWithOwnership(clientId, false);
+        //}
     }
 
     protected virtual void SpawnFirstBase()

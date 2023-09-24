@@ -8,4 +8,5 @@ public enum BuildingCode
 
     MainBase = 1,
     RallyPoint = 2,
+    DummyPlayer = 3,
 }
