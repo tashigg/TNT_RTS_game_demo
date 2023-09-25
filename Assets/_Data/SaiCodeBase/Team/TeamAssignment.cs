@@ -25,7 +25,6 @@ public class TeamAssignment : SaiMonoBehaviour
 
     public virtual void ColorApply(int teamId)
     {
-        Debug.Log($"ColorApply {teamId}");
         this.teamId = teamId;
         string materialName;
         int materialCount;

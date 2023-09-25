@@ -7,6 +7,7 @@ public class UnitsManager : SaiSingleton<UnitsManager>
 {
     [Header("Unit Manager")]
     public BuildingCtrl currentBuilding;
+    [SerializeField] protected List<UnitCtrl> myUnits;
 
     public virtual void SetCurrentBuilding(BuildingCtrl buildingCtrl)
     {
@@ -35,5 +36,14 @@ public class UnitsManager : SaiSingleton<UnitsManager>
         ulong ownerId = netObj.OwnerClientId;
         NetworkObject newNetObj = newObj.GetComponent<NetworkObject>();
         newNetObj.SpawnWithOwnership(ownerId);
+    }
+
+    public virtual void AddMyUnit(UnitCtrl unitCtrl)
+    {
+        ulong clientId = unitCtrl.networkObject.OwnerClientId;
+        ulong myClientId = NetworkManager.Singleton.LocalClientId;
+        Debug.LogWarning($"AddMyUnit: {clientId}/{myClientId} {transform.name}");
+        if (clientId != myClientId) return;
+        this.myUnits.Add(unitCtrl);
     }
 }

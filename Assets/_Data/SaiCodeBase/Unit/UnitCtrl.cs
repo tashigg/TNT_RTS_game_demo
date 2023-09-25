@@ -59,9 +59,6 @@ public class UnitCtrl : SaiMonoBehaviour
 
     protected virtual void AssignTeam()
     {
-        Debug.Log($"AssignTeam {this.clientId}", gameObject);
-        //TeamAssignment teamAssignment = gameObject.AddComponent(typeof(TeamAssignment)) as TeamAssignment;
-        //teamAssignment.LoadMeshRenderer();
         this.teamAssignment.ColorApply(this.clientId);
     }
 
