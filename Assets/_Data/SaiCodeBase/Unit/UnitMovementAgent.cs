@@ -108,8 +108,6 @@ public class UnitMovementAgent : UnitAbstract
         int mask = (1 << MyLayerManager.instance.layerGroundTerrain);
         if (Physics.Raycast(ray, out RaycastHit hit, 999, mask))
         {
-            Debug.LogWarning($"ChoosePlace2Move: {hit.point}");
-
             if (NetworkManager.Singleton.IsServer)
             {
                 this.movePoint.position = hit.point;
