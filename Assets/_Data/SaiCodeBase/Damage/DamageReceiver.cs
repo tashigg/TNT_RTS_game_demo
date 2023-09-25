@@ -7,8 +7,8 @@ public abstract class DamageReceiver : SaiMonoBehaviour
 {
     [Header("Damage Receiver")]
     [SerializeField] protected SphereCollider sphereCollider;
-    [SerializeField] protected int hp = 7;
-    [SerializeField] protected int hpMax = 7;
+    [SerializeField] protected int hp = 27;
+    [SerializeField] protected int hpMax = 27;
     [SerializeField] protected bool isDead = false;
 
     public int HP => hp;

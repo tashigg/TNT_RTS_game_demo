@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 525193075685666251}
-  - component: {fileID: 6415694082561189785}
   - component: {fileID: 4606640408795264735}
   - component: {fileID: 8715141262726619313}
+  - component: {fileID: 910494450535773971}
   m_Layer: 0
   m_Name: DamageSender
   m_TagString: Untagged
@@ -34,19 +34,6 @@ Transform:
   m_Father: {fileID: 7624144911745185749}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &6415694082561189785
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 115236718648114408}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0.5, z: 1}
 --- !u!114 &4606640408795264735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,9 +47,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  boxCollider: {fileID: 6415694082561189785}
+  _collider: {fileID: 910494450535773971}
   unitCtrl: {fileID: 7999013621813674817}
   targetUnitCtrl: {fileID: 0}
+  attackRange: 4
+  attackTimer: 0
+  attackDelay: 1
+  enemies: []
 --- !u!54 &8715141262726619313
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -79,6 +70,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!135 &910494450535773971
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 115236718648114408}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 4
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1 &3409804966471055248
 GameObject:
   m_ObjectHideFlags: 0
@@ -293,8 +297,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sphereCollider: {fileID: 3727015910765127367}
-  hp: 7
-  hpMax: 7
+  hp: 27
+  hpMax: 27
   isDead: 0
   unitCtrl: {fileID: 7999013621813674817}
 --- !u!135 &3727015910765127367
@@ -441,6 +445,7 @@ MonoBehaviour:
   unitSelectable: {fileID: 9084142786402399871}
   teamAssignment: {fileID: 1491839804010324181}
   unitMovementAgent: {fileID: 902921275293470978}
+  unitDamageReceiver: {fileID: 7171623697222355354}
   clientId: -1
   navMeshAgent: {fileID: 7740102613133530123}
   unitMovement: {fileID: 902921275293470978}
@@ -1086,6 +1091,10 @@ PrefabInstance:
       propertyPath: unitCtrl
       value: 
       objectReference: {fileID: 7999013621813674817}
+    - target: {fileID: 7778700886358249362, guid: b4f6959fd0836aa4d9eab6f1579e02ba, type: 3}
+      propertyPath: walkLimit
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7778700886358249362, guid: b4f6959fd0836aa4d9eab6f1579e02ba, type: 3}
       propertyPath: navMeshAgent
       value: 

@@ -11,7 +11,7 @@ public class UnitMovementAgent : UnitAbstract
     public bool canMove = true;
     [SerializeField] protected bool isWalking = false;
     [SerializeField] protected Transform movePoint;
-    [SerializeField] protected float walkLimit = 0.7f;
+    [SerializeField] protected float walkLimit = 2f;
     [SerializeField] protected float targetDistance = 0f;
 
     private void Update()

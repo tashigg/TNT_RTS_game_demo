@@ -3182,6 +3182,8 @@ MonoBehaviour:
   networkObject: {fileID: 4452615559735098784}
   unitSelectable: {fileID: 6632411166053559611}
   teamAssignment: {fileID: 5340403717552050184}
+  unitMovementAgent: {fileID: 0}
+  unitDamageReceiver: {fileID: 0}
   clientId: -1
   spawnPoint: {fileID: 3849332726147545760}
   rallyPoint: {fileID: 192722409505443568}
@@ -7102,7 +7104,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8131538385609024170, guid: 737dbf546b359d546b9d55eeacc0a6e6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.14
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8131538385609024170, guid: 737dbf546b359d546b9d55eeacc0a6e6, type: 3}
       propertyPath: m_LocalPosition.y
@@ -7110,7 +7112,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8131538385609024170, guid: 737dbf546b359d546b9d55eeacc0a6e6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.14
+      value: -4.94
       objectReference: {fileID: 0}
     - target: {fileID: 8131538385609024170, guid: 737dbf546b359d546b9d55eeacc0a6e6, type: 3}
       propertyPath: m_LocalRotation.w

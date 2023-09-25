@@ -23,5 +23,12 @@ public class UnitEvents : NetworkBehaviour
     {
         base.OnNetworkSpawn();
         UnitsManager.Instance.AddMyUnit(this.unitCtrl);
+        UnitCounter.Instance.Add();
+    }
+
+    public override void OnNetworkDespawn()
+    {
+        base.OnNetworkSpawn();
+        UnitCounter.Instance.Remove();
     }
 }

@@ -8,6 +8,7 @@ public class UnitCtrl : SaiMonoBehaviour
     public UnitSelectable unitSelectable;
     public TeamAssignment teamAssignment;
     public UnitMovementAgent unitMovementAgent;
+    public UnitDamageReceiver unitDamageReceiver;
 
     [SerializeField] protected int clientId = -1;
     public int ClientID => clientId;
@@ -25,6 +26,14 @@ public class UnitCtrl : SaiMonoBehaviour
         this.LoadUnitSelectable();
         this.LoadTeamAssignment();
         this.LoadUnitMovementAgent();
+        this.LoadUnitDamageReceiver();
+    }
+
+    protected virtual void LoadUnitDamageReceiver()
+    {
+        if (this.unitDamageReceiver != null) return;
+        this.unitDamageReceiver = GetComponentInChildren<UnitDamageReceiver>();
+        Debug.LogWarning(transform.name + ": LoadUnitDamageReceiver", gameObject);
     }
 
     protected virtual void LoadUnitMovementAgent()
@@ -55,6 +64,7 @@ public class UnitCtrl : SaiMonoBehaviour
 
     protected virtual void LoadClientId()
     {
+        if (this.networkObject == null) return;
         if (!this.networkObject.IsSpawned)
         {
             Invoke(nameof(this.LoadClientId), 0.2f);
@@ -69,7 +79,6 @@ public class UnitCtrl : SaiMonoBehaviour
     {
         this.teamAssignment.ColorApply(this.clientId);
     }
-
 
     protected virtual void LoadTeamAssignment()
     {

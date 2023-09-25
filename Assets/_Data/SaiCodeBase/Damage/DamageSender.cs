@@ -10,7 +10,6 @@ public class DamageSender : SaiMonoBehaviour
         DamageReceiver damageReceiver = obj.GetComponentInChildren<DamageReceiver>();
         if (damageReceiver == null) return;
         this.Send(damageReceiver);
-        this.CreateImpactFX();
     }
 
     public virtual void Send(DamageReceiver damageReceiver)
@@ -18,13 +17,12 @@ public class DamageSender : SaiMonoBehaviour
         damageReceiver.Deduct(this.damage);
     }
 
-    protected virtual void CreateImpactFX()
+    protected virtual void CreateImpactFX(Vector3 pos)
     {
         string fxName = this.GetImpactFX();
 
-        Vector3 hitPos = transform.position;
         Quaternion hitRot = transform.rotation;
-        Transform fxImpact = FXSpawner.Instance.Spawn(fxName, hitPos, hitRot);
+        Transform fxImpact = FXSpawner.Instance.Spawn(fxName, pos, hitRot);
         fxImpact.gameObject.SetActive(true);
     }
 

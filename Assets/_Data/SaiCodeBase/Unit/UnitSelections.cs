@@ -55,7 +55,6 @@ public class UnitSelections : SaiSingleton<UnitSelections>
         {
             UnitSelectable unitSelectable = hit.collider.gameObject.GetComponent<UnitSelectable>();
             this.Select(unitSelectable);
-            Debug.LogWarning(hit.collider.gameObject.transform.parent.name);
             return;
         }
 
@@ -64,7 +63,6 @@ public class UnitSelections : SaiSingleton<UnitSelections>
 
     protected virtual void ChooseManyUnits()
     {
-        if (this.isSelecting) this.isSelectTimer += Time.deltaTime;
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -75,8 +73,8 @@ public class UnitSelections : SaiSingleton<UnitSelections>
         if (Input.GetMouseButtonUp(0))
         {
             this.isSelecting = false;
-            this.SelectObjectsInArea();
             this.isSelectTimer = 0;
+            this.SelectObjectsInArea();
         }
 
         if (this.IsSelecting())
@@ -90,11 +88,19 @@ public class UnitSelections : SaiSingleton<UnitSelections>
             );
             if(!Input.GetKey(KeyCode.LeftShift)) this.Clear();
         }
+
+        if (this.isSelecting) this.isSelectTimer += Time.deltaTime;
+
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            this.isSelecting = false;
+            this.isSelectTimer = 0;
+        }
     }
 
     protected virtual bool IsSelecting()
     {
-        return this.isSelectTimer > this.isSelectLimit;
+        return this.isSelecting || this.isSelectTimer > this.isSelectLimit;
     }
 
     void OnGUI()
@@ -109,7 +115,7 @@ public class UnitSelections : SaiSingleton<UnitSelections>
 
         Rect selectionRect = new Rect(start.x, start.y, end.x - start.x, end.y - start.y);
 
-        foreach (UnitCtrl unitCtrl in UnitsManager.Instance.MyUnits)
+        foreach (UnitCtrl unitCtrl in UnitsManager.Instance.GetMyUnits())
         {
             Vector3 unitPos = Camera.main.WorldToViewportPoint(unitCtrl.transform.position);
             if (selectionRect.Contains(unitPos, true))

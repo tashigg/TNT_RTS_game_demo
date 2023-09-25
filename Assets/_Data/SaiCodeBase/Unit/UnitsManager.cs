@@ -15,8 +15,26 @@ public class UnitsManager : SaiSingleton<UnitsManager>
         this.currentBuilding = buildingCtrl;
     }
 
+    public virtual List<UnitCtrl> GetMyUnits()
+    {
+        this.ClearMissing();
+        return this.myUnits;
+    }
+
+    protected virtual void ClearMissing()
+    {
+        for (int i = this.myUnits.Count - 1; i >= 0; i--)
+        {
+            if (this.myUnits[i] == null)
+            {
+                this.myUnits.RemoveAt(i);
+            }
+        }
+    }
+
     public virtual void CreateUnit(UnitCode unit)
     {
+        if (this.currentBuilding == null) return;
         ulong networkObjectId = this.currentBuilding.networkObject.NetworkObjectId;
         NetworkPlayers.Instance.me.playerEvents.CreateUnitServerRpc(networkObjectId, unit);
     }
