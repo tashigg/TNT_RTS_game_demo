@@ -8,6 +8,7 @@ public class UnitSelectable : UnitAbstract
 
     public virtual bool IsSelected()
     {
-        return this.unitCtrl.unitSelectable == UnitSelections.Instance.firstUnit;
+        return UnitSelections.Instance.Contains(this);
     }
+
 }

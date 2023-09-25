@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -12,6 +13,11 @@ public class UnitMovementAgent : UnitAbstract
     [SerializeField] protected Transform movePoint;
     [SerializeField] protected float walkLimit = 0.7f;
     [SerializeField] protected float targetDistance = 0f;
+
+    private void Update()
+    {
+        this.ChoosePlace2Move();
+    }
 
     void LateUpdate()
     {
@@ -83,5 +89,35 @@ public class UnitMovementAgent : UnitAbstract
     public virtual float TargetDistance()
     {
         return this.targetDistance;
+    }
+
+    public virtual void SetMovePosition(Vector3 pos)
+    {
+        this.movePoint.position = pos;
+    }
+
+    protected virtual void ChoosePlace2Move()
+    {
+        if (GodModeCtrl.instance == null) return;
+        if (GodModeCtrl.instance.godInput.isMouseRotating) return;
+        if (!Input.GetKeyUp(KeyCode.Mouse1)) return;
+        if (!this.unitCtrl.unitSelectable.IsSelected()) return;
+
+        Ray ray = GodModeCtrl.instance._camera.ScreenPointToRay(Input.mousePosition);
+
+        int mask = (1 << MyLayerManager.instance.layerGroundTerrain);
+        if (Physics.Raycast(ray, out RaycastHit hit, 999, mask))
+        {
+            Debug.LogWarning($"ChoosePlace2Move: {hit.point}");
+
+            if (NetworkManager.Singleton.IsServer)
+            {
+                this.movePoint.position = hit.point;
+                return;
+            }
+
+            ulong unitId = this.unitCtrl.networkObject.NetworkObjectId;
+            NetworkPlayers.Instance.me.playerEvents.MoveUnitServerRpc(unitId, hit.point);
+        }
     }
 }

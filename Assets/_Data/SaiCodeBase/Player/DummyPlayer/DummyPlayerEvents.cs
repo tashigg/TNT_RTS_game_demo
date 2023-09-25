@@ -59,4 +59,12 @@ public class DummyPlayerEvents : NetworkBehaviour
         BuildingCtrl buildingCtrl = netObj.GetComponent<BuildingCtrl>();
         buildingCtrl.rallyPoint.transform.position = position;
     }
+
+    [ServerRpc]
+    public void MoveUnitServerRpc(ulong unitId, Vector3 position)
+    {
+        NetworkObject netObj = NetworkManager.Singleton.SpawnManager.SpawnedObjects[unitId];
+        UnitCtrl unitCtrl = netObj.GetComponent<UnitCtrl>();
+        unitCtrl.unitMovementAgent.SetMovePosition(position);
+    }
 }

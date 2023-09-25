@@ -8,6 +8,7 @@ public class UnitsManager : SaiSingleton<UnitsManager>
     [Header("Unit Manager")]
     public BuildingCtrl currentBuilding;
     [SerializeField] protected List<UnitCtrl> myUnits;
+    public List<UnitCtrl> MyUnits => myUnits;
 
     public virtual void SetCurrentBuilding(BuildingCtrl buildingCtrl)
     {
@@ -42,7 +43,6 @@ public class UnitsManager : SaiSingleton<UnitsManager>
     {
         ulong clientId = unitCtrl.networkObject.OwnerClientId;
         ulong myClientId = NetworkManager.Singleton.LocalClientId;
-        Debug.LogWarning($"AddMyUnit: {clientId}/{myClientId} {transform.name}");
         if (clientId != myClientId) return;
         this.myUnits.Add(unitCtrl);
     }

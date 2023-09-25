@@ -5,8 +5,8 @@ using UnityEngine;
 public class UnitSelections : SaiSingleton<UnitSelections>
 {
     [Header("Unit Selections")]
-    public UnitSelectable firstUnit;
-    public List<UnitSelectable> units;
+    [SerializeField] protected UnitSelectable firstUnit;
+    [SerializeField] protected List<UnitSelectable> units;
     [SerializeField] protected bool isSelecting = false;
     [SerializeField] protected float isSelectTimer = 0f;
     [SerializeField] protected float isSelectLimit = 0.5f;
@@ -88,6 +88,7 @@ public class UnitSelections : SaiSingleton<UnitSelections>
                 Mathf.Abs(currentMousePosition.x - initialMousePosition.x),
                 Mathf.Abs(currentMousePosition.y - initialMousePosition.y)
             );
+            if(!Input.GetKey(KeyCode.LeftShift)) this.Clear();
         }
     }
 
@@ -108,15 +109,19 @@ public class UnitSelections : SaiSingleton<UnitSelections>
 
         Rect selectionRect = new Rect(start.x, start.y, end.x - start.x, end.y - start.y);
 
-        foreach (GameObject obj in GameObject.FindObjectsOfType<GameObject>())
+        foreach (UnitCtrl unitCtrl in UnitsManager.Instance.MyUnits)
         {
-            if (obj.GetComponent<Renderer>() != null)
+            Vector3 unitPos = Camera.main.WorldToViewportPoint(unitCtrl.transform.position);
+            if (selectionRect.Contains(unitPos, true))
             {
-                if (selectionRect.Contains(Camera.main.WorldToViewportPoint(obj.transform.position), true))
-                {
-                    obj.GetComponent<Renderer>().material.color = Color.red;
-                }
+                if (this.units.Contains(unitCtrl.unitSelectable)) continue;
+                this.units.Add(unitCtrl.unitSelectable);
             }
         }
+    }
+
+    public virtual bool Contains(UnitSelectable unit)
+    {
+        return this.units.Contains(unit);
     }
 }

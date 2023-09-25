@@ -7,6 +7,7 @@ public class UnitCtrl : SaiMonoBehaviour
     public NetworkObject networkObject;
     public UnitSelectable unitSelectable;
     public TeamAssignment teamAssignment;
+    public UnitMovementAgent unitMovementAgent;
 
     [SerializeField] protected int clientId = -1;
     public int ClientID => clientId;
@@ -23,8 +24,15 @@ public class UnitCtrl : SaiMonoBehaviour
         this.LoadNetworkManager();
         this.LoadUnitSelectable();
         this.LoadTeamAssignment();
+        this.LoadUnitMovementAgent();
     }
 
+    protected virtual void LoadUnitMovementAgent()
+    {
+        if (this.unitMovementAgent != null) return;
+        this.unitMovementAgent = GetComponentInChildren<UnitMovementAgent>();
+        Debug.LogWarning(transform.name + ": LoadUnitMovementAgent", gameObject);
+    }
 
     protected virtual void LoadNetworkManager()
     {
