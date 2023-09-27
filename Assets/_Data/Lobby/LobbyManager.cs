@@ -46,7 +46,7 @@ public class LobbyManager : SaiSingleton<LobbyManager>
         base.Awake();
 
         DontDestroyOnLoad(gameObject);
-        this.RandomUniqueId();
+        //this.RandomUniqueId();
     }
 
     void FixedUpdate()
@@ -257,6 +257,7 @@ public class LobbyManager : SaiSingleton<LobbyManager>
 
     public virtual async void CreateLobby()
     {
+        this.uniqueId = this.RandomUniqueId();
         await this.ServiceInit(this.uniqueId);
 
         var lobbyOptions = new CreateLobbyOptions
@@ -288,6 +289,7 @@ public class LobbyManager : SaiSingleton<LobbyManager>
 
     public virtual async void JoinLobby()
     {
+        this.uniqueId = this.RandomUniqueId();
         await this.ServiceInit(this.uniqueId);
 
         PlayerDataObject playerData;
@@ -348,8 +350,8 @@ public class LobbyManager : SaiSingleton<LobbyManager>
         else this.networkManager.StartClient();
     }
 
-    protected virtual void RandomUniqueId()
+    protected virtual string RandomUniqueId()
     {
-        this.uniqueId = Random.Range(1000000, 9999999).ToString();
+        return Random.Range(1000000, 9999999).ToString();
     }
 }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class InpMaxPlayer : BaseInputField
@@ -7,6 +5,7 @@ public class InpMaxPlayer : BaseInputField
     [Header("Max Player")]
     [SerializeField] protected int max = 16;
     [SerializeField] protected int min = 1;
+
     protected override void onChanged(string value)
     {
         if (value == "") return;
