@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BtnLobbyStart : BaseButton
@@ -25,7 +23,6 @@ public class BtnLobbyStart : BaseButton
 
     protected override void OnClick()
     {
-        Debug.Log("Start Lobby");
         LobbyManager.Instance.GameStart();
     }
 }

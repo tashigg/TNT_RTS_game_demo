@@ -1390,6 +1390,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputField: {fileID: 561632434}
+--- !u!114 &580873973 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7190604400666017731, guid: e4e2f79629091f847ad148d575852815, type: 3}
+  m_PrefabInstance: {fileID: 2007757206}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5d3792a1cedbd65c9fea7d66071902c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &633159651
 GameObject:
   m_ObjectHideFlags: 0
@@ -3812,6 +3823,10 @@ PrefabInstance:
       propertyPath: NetworkConfig.PlayerPrefab
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7190604400666017730, guid: e4e2f79629091f847ad148d575852815, type: 3}
+      propertyPath: NetworkConfig.NetworkTransport
+      value: 
+      objectReference: {fileID: 580873973}
     - target: {fileID: 7190604400666017756, guid: e4e2f79629091f847ad148d575852815, type: 3}
       propertyPath: m_Name
       value: NetworkManager

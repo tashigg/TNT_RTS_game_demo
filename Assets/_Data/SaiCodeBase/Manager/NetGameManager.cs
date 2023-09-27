@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -25,7 +23,6 @@ public class NetGameManager : SaiSingleton<NetGameManager>
     {
         if (!NetworkManager.Singleton.IsServer) return;
         int playerCount = LobbyManager.Instance.playerCount;
-        //Debug.LogWarning("SpawnPlayers: " + playerCount);
         for (int i = 0; i < playerCount; i++)
         {
             Transform newObj = BuildingSpawner.Instance.Spawn(BuildingCode.DummyPlayer.ToString(), Vector3.zero);

@@ -44,9 +44,7 @@ public class LobbyManager : SaiSingleton<LobbyManager>
     protected override void Awake()
     {
         base.Awake();
-
         DontDestroyOnLoad(gameObject);
-        //this.RandomUniqueId();
     }
 
     void FixedUpdate()
@@ -93,9 +91,6 @@ public class LobbyManager : SaiSingleton<LobbyManager>
             await LobbyService.Instance.SendHeartbeatPingAsync(lobbyId);
         }
 
-        //if (NetworkTransport.SessionHasStarted) return;
-        //if (!this.isGameStarted) return;
-
         if (Time.realtimeSinceStartup >= this.nextLobbyRefresh)
         {
             this.nextLobbyRefresh = Time.realtimeSinceStartup + this.lobbyRefreshDelay;
@@ -110,12 +105,10 @@ public class LobbyManager : SaiSingleton<LobbyManager>
         if (!this.playerDataUpdated) return;
         if (!this.isGameStarted) return;
         if (NetworkTransport.SessionHasStarted) return;
-        Debug.LogWarning("Receive Incoming Detail");
 
         var incomingSessionDetails = IncomingSessionDetails.FromUnityLobby(this.lobby);
         if (incomingSessionDetails.AddressBook.Count == lobby.Players.Count)
         {
-            Debug.LogWarning("Update Session Details");
             NetworkTransport.UpdateSessionDetails(incomingSessionDetails);
 
             if (this.isLobbyHost)
@@ -152,7 +145,6 @@ public class LobbyManager : SaiSingleton<LobbyManager>
 
     protected virtual void LoadLobbyPlayer(List<Player> players)
     {
-        //Debug.Log("Load Lobby Player");
         string id, name, position;
         LobbyPlayer lobbyPlayer;
         PlayerDataObject playerData;
@@ -185,8 +177,6 @@ public class LobbyManager : SaiSingleton<LobbyManager>
 
     protected virtual async void UpdateLobbyData()
     {
-        //Debug.Log("Update Lobby Data");
-
         var updatePlayerOptions = new UpdatePlayerOptions();
         var outgoingSessionDetails = NetworkTransport.OutgoingSessionDetails;
         if (outgoingSessionDetails.AddTo(updatePlayerOptions))

@@ -1,5 +1,3 @@
-using RTSEngine.Entities;
-using RTSEngine.UI;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -32,7 +30,6 @@ public class DummyPlayerEvents : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        //Debug.LogWarning($"OnNetworkSpawn: " + this.OwnerClientId);
         base.OnNetworkSpawn();
         NetworkPlayers.Instance.Add(this.playerCtrl);
         if (this.IsOwner) NetworkPlayers.Instance.SetMe(this.playerCtrl);

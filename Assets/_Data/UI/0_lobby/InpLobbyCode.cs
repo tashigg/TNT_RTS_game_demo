@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class InpLobbyCode : BaseInputField
 {
     private void FixedUpdate()
@@ -16,8 +12,6 @@ public class InpLobbyCode : BaseInputField
         this.inputField.text = LobbyManager.Instance.lobbyCode;
         this.inputField.readOnly = true;
     }
-
-
 
     protected override void onChanged(string value)
     {

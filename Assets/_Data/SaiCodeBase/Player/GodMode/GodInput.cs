@@ -13,7 +13,6 @@ public class GodInput : SaiMonoBehaviour
     {
         this.InputHandle();
         this.MouseRotation();
-        this.ChoosePlace2Build();
     }
 
     protected override void LoadComponents()
@@ -74,12 +73,5 @@ public class GodInput : SaiMonoBehaviour
         }
 
         this.isMouseRotating = false;
-    }
-
-    protected virtual void ChoosePlace2Build()
-    {
-        //if (!BuildManager.instance.isBuilding) return;
-        if (!Input.GetKeyUp(KeyCode.Mouse0)) return;
-        //BuildManager.instance.CurrentBuildPlace();
     }
 }
