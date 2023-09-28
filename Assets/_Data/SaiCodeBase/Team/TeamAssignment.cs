@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +7,6 @@ public class TeamAssignment : SaiMonoBehaviour
     [SerializeField] protected int teamId = 0;
     [SerializeField] protected GameInfoSO gameData;
     [SerializeField] protected List<MeshRenderer> colorRenderers;
-
 
     protected override void LoadComponents()
     {

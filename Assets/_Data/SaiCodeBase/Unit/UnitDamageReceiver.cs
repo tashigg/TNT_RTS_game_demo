@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -32,7 +30,6 @@ public class UnitDamageReceiver : DamageReceiver
         this.unitCtrl = GetComponentInParent<UnitCtrl>();
         Debug.LogWarning(transform.name + ": LoadUnitCtrl", gameObject);
     }
-
 
     protected override void OnDead()
     {

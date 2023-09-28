@@ -32,7 +32,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7624144911745185749}
-  m_RootOrder: 5
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4606640408795264735
 MonoBehaviour:
@@ -282,7 +282,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7624144911745185749}
-  m_RootOrder: 6
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7171623697222355354
 MonoBehaviour:
@@ -350,11 +350,11 @@ Transform:
   m_Children:
   - {fileID: 7624890880971430727}
   - {fileID: 3920891040661830699}
-  - {fileID: 4520204493078284831}
-  - {fileID: 8698628421091172804}
-  - {fileID: 219494572416211670}
   - {fileID: 525193075685666251}
   - {fileID: 4614816013304876644}
+  - {fileID: 8698628421091172804}
+  - {fileID: 4520204493078284831}
+  - {fileID: 219494572416211670}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -975,7 +975,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7833305524756959851, guid: ee7ddb6a49b7d2d4a953598628386b75, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7833305524756959851, guid: ee7ddb6a49b7d2d4a953598628386b75, type: 3}
       propertyPath: m_LocalScale.x
@@ -1045,7 +1045,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7241612300587254854, guid: b4f6959fd0836aa4d9eab6f1579e02ba, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7241612300587254854, guid: b4f6959fd0836aa4d9eab6f1579e02ba, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1134,7 +1134,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2233874927542509101, guid: 0ea5dfb256de59645a8412e476867701, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2233874927542509101, guid: 0ea5dfb256de59645a8412e476867701, type: 3}
       propertyPath: m_LocalPosition.x

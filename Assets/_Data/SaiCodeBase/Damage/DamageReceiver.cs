@@ -33,7 +33,6 @@ public abstract class DamageReceiver : SaiMonoBehaviour
         Debug.LogWarning(transform.name + ": LoadCollider", gameObject);
     }
 
-
     protected override void ResetValue()
     {
         base.ResetValue();
